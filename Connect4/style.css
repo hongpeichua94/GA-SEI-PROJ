@@ -1,0 +1,88 @@
+/* 
+background #3394ff
+board #025BBF
+yellow #FFD933/#DFB500
+red #FF3B30/#C0261F
+*/
+
+body {
+  font-family: Avenir Next;
+  color: white;
+  text-align: center;
+  background-color: #3394ff;
+}
+
+#board {
+  height: 540px;
+  width: 630px;
+  padding-top: 100px;
+  background-color: #025bbf;
+  border-radius: 5%;
+
+  /* display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 1fr); */
+
+  display: flex;
+  flex-wrap: wrap;
+
+  margin: 120px auto 50px auto;
+  padding: 10px;
+}
+
+/* .cell {
+  border: 1px dotted white;
+  display: flex;
+} */
+
+.tile {
+  height: 60px;
+  width: 60px;
+  margin: 10px;
+
+  background-color: #ffffff;
+  border-radius: 50%;
+  border: 5px solid navy;
+  box-shadow: 2px 2px 2px black;
+
+  display: flex;
+  flex-grow: 1;
+}
+
+/* hover disc */
+.disc[data-placed="false"] {
+  transform: translateY(-100px);
+}
+
+.disc {
+  border-radius: 50%;
+  flex-grow: 1;
+}
+
+.disc[data-player="1"] {
+  background-color: #ff3b30;
+}
+
+.disc[data-player="2"] {
+  background-color: #ffd933;
+}
+
+/* set disc */
+.red {
+  background-color: #ff3b30;
+}
+
+.yellow {
+  background-color: #ffd933;
+}
+
+.button {
+  font-size: 16px;
+  font-family: Avenir Next;
+  background-color: #ffffff;
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  margin: 20px;
+}
