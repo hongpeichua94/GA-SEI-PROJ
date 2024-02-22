@@ -7,14 +7,22 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>Connect 4</h1>
+    <h1>Connect Four</h1>
     <p>
-      Objective: Be the first player to get four of your coloured checkes in a
-      row - horizontally, vertically or diagonally
+      Objective: Be the first player to get four of your coloured discs in a row
+      - horizontally, vertically or diagonally
     </p>
-    <h2 id="winner">[Placeholder: xxx Wins!]</h2>
-    <div id="board"></div>
-    <button type="button" class="button">Reset</button>
+    <!-- <h2 id="winner"></h2> -->
+    <h2 id="players">[Placeholder] Player 1 turn</h2>
+    <h3 id="timer">[Placeholder] Timer Here</h3>
+    <div id="game-board"></div>
+    <div id="alert-container">
+      <div id="alert-content">
+        <h2 id="message">pop-up modal</h2>
+        <button id="restart">Restart Game</button>
+      </div>
+    </div>
+    <!-- <button type="button" class="button" id="restart">Restart Game</button> -->
     <script src="script.js"></script>
   </body>
 </html>
