@@ -4,17 +4,62 @@ const playerTwo = "2";
 let currPlayer = playerOne;
 
 let gameOver = false;
-// let board;
-// let currCol;
+let board;
+let currCol;
 
 const rows = 6; // y-axis
 const cols = 7; // x-axis
 
 const restartButton = document.getElementById("restart");
+const playerMessage = document.querySelector(".player-container");
+const timerContainer = document.querySelector(".timer-container");
+
+let interval;
+let counter;
 
 // window.onload = function () {
 setGame();
 // };
+
+// any better way writing this portion
+// why can't clearInterval stop counter when game over?
+function setTimer() {
+  let counter = 10;
+
+  const interval = setInterval(function () {
+    playerMessage.innerText = `Player ${currPlayer} is making a move...`;
+    timerContainer.innerText = `${counter}s remaining`;
+    // console.log(`Player ${currPlayer} have ${counter}s remaining`);
+    counter--;
+
+    if (counter == 0) {
+      switchPlayer();
+      clearInterval(interval);
+      // console.log(`Times up. Player ${currPlayer}'s turn`);
+      setTimer();
+    }
+
+    if (currPlayer == playerOne && counter > 0) {
+      document.addEventListener("click", () => {
+        clearInterval(interval);
+      });
+    }
+
+    if (currPlayer == playerTwo && counter > 0) {
+      document.addEventListener("click", () => {
+        clearInterval(interval);
+      });
+    }
+  }, 1000);
+}
+
+function switchPlayer() {
+  if (currPlayer == playerOne) {
+    currPlayer = playerTwo;
+  } else {
+    currPlayer = playerOne;
+  }
+}
 
 // creating the board and tiles
 function setGame() {
@@ -30,7 +75,10 @@ function setGame() {
       let tile = document.createElement("div");
       tile.id = y.toString() + "-" + x.toString();
       tile.classList.add("tile");
+
       tile.addEventListener("click", setColumn);
+      tile.addEventListener("click", setTimer);
+
       document.getElementById("game-board").append(tile);
 
       tile.onmouseenter = function () {
@@ -66,19 +114,20 @@ function setColumn() {
   disc.dataset.player = currPlayer;
   tile.appendChild(disc);
 
+  // switching player
   if (currPlayer == playerOne) {
-    // console.log(`Player ${currPlayer}`);
     disc.classList.add("red");
     currPlayer = playerTwo;
+    console.log(currPlayer);
   } else {
-    // console.log(`Player ${currPlayer}`);
     disc.classList.add("yellow");
     currPlayer = playerOne;
+    console.log(currPlayer);
   }
 
   y -= 1; //updating row height of placed disc
   currCol[x] = y; //update currCol array
-  console.log(board);
+  // console.log(board);
 
   // upate hovering piece
   updateHover();
@@ -118,7 +167,6 @@ function checkWinner() {
           board[y][x + 2] == board[y][x + 3]
         ) {
           setWinner(y, x);
-          console.log("we have a winner; game ends");
         }
       }
     }
@@ -134,7 +182,6 @@ function checkWinner() {
           board[y + 2][x] == board[y + 3][x]
         ) {
           setWinner(y, x);
-          console.log("we have a winner; game ends");
         }
       }
     }
@@ -150,13 +197,12 @@ function checkWinner() {
           board[y - 2][x + 2] == board[y - 3][x + 3]
         ) {
           setWinner(y, x);
-          console.log("we have a winner; game ends");
         }
       }
     }
   }
 
-  //diagonal bottom left to top right)
+  // diagonal top left to bottom right
   for (let y = 0; y < rows - 3; y++) {
     for (let x = 0; x < cols - 3; x++) {
       if (board[y][x] != " ") {
@@ -166,7 +212,6 @@ function checkWinner() {
           board[y + 2][x + 2] == board[y + 3][x + 3]
         ) {
           setWinner(y, x);
-          console.log("we have a winner; game ends");
         }
       }
     }
@@ -175,18 +220,19 @@ function checkWinner() {
 
 function setWinner(y, x) {
   // let winner = document.getElementById("winner");
-  const alertContainer = document.getElementById("alert-container");
+  const alertContainer = document.querySelector(".alert-container");
   const alertMessage = document.getElementById("message");
   if (board[y][x] == playerOne) {
     // winner.innerText = "Player 1 Wins";
     alertContainer.style.display = "block";
-    alertMessage.innerText = "Player 1 Wins!!";
+    alertMessage.innerText = "Player 1 Wins!! 🎉";
   } else {
     // winner.innerText = "Player 2 Wins";
     alertContainer.style.display = "block";
-    alertMessage.innerText = "Player 2 Wins!!";
+    alertMessage.innerText = "Player 2 Wins!! 🎉";
   }
   gameOver = true;
+  // clearTimeout(counter);
 }
 
 // remove disc when moved away from column
@@ -223,6 +269,3 @@ function resetGame() {
 }
 
 restartButton.addEventListener("click", resetGame);
-
-// function checkDraw()
-// timer()

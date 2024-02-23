@@ -10,9 +10,10 @@ body {
   color: white;
   text-align: center;
   background-color: #3394ff;
+  /* background-color: #ffffff; */
 }
 
-#game-board {
+.board {
   position: relative;
   height: 540px;
   width: 630px;
@@ -31,11 +32,6 @@ body {
   padding: 10px;
 }
 
-/* .cell {
-  border: 1px dotted white;
-  display: flex;
-} */
-
 .tile {
   height: 60px;
   width: 60px;
@@ -45,7 +41,6 @@ body {
   border-radius: 50%;
   border: 5px solid navy;
   box-shadow: 2px 2px 2px black;
-
   display: flex;
   flex-grow: 1;
 }
@@ -62,23 +57,27 @@ body {
 
 .disc[data-player="1"] {
   background-color: #ff3b30;
+  border: 3px solid #c0261f;
 }
 
 .disc[data-player="2"] {
   background-color: #ffd933;
+  border: 3px solid #dfb500;
 }
 
 /* set disc */
 .red {
   background-color: #ff3b30;
+  border: 3px solid #c0261f;
 }
 
 .yellow {
   background-color: #ffd933;
+  border: 3px solid #dfb500;
 }
 
 /* alert message */
-#alert-container {
+.alert-container {
   display: none;
   position: fixed;
   top: 0;
@@ -90,13 +89,55 @@ body {
   padding-top: 350px;
 }
 
-button {
+.alert-content {
+  width: 30%;
+  margin: auto;
+  padding: 50px;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 20px;
+  color: black;
+}
+
+.button {
   font-size: 16px;
   font-family: Avenir Next;
   background-color: #ffffff;
-  color: #000;
-  border: none;
-  border-radius: 10px;
+  color: #025bbf;
+  border: 3px solid #025bbf;
+  border-radius: 50px;
   padding: 10px 20px;
   margin: 20px;
+}
+
+.button:hover {
+  background-color: #025bbf;
+  color: #ffffff;
+  transition: 0.7s;
+}
+
+.legend-container {
+  display: flex;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 50px;
+}
+
+.legend-container div {
+  margin: auto 30px;
+}
+
+#player1-disc {
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  background-color: #ff3b30;
+  border: 4px solid #c0261f;
+}
+
+#player2-disc {
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  background-color: #ffd933;
+  border: 4px solid #dfb500;
 }
