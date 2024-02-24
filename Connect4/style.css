@@ -1,6 +1,6 @@
 /* 
-background #3394ff
-board #025BBF
+background #3394ff/#0e1545
+board #025BBF/#1757D7
 yellow #FFD933/#DFB500
 red #FF3B30/#C0261F
 */
@@ -9,26 +9,39 @@ body {
   font-family: Avenir Next;
   color: white;
   text-align: center;
-  background-color: #3394ff;
-  /* background-color: #ffffff; */
+  background-color: #0e1545;
+}
+
+.homescreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+img {
+  max-width: 80%;
+  width: 630px;
+  height: 540px;
+  margin-top: 50px;
+}
+
+p {
+  font-size: 18px;
+  margin: auto 50px;
+  padding: 30px;
+  background-color: #eaebf020;
 }
 
 .board {
   position: relative;
   height: 540px;
   width: 630px;
-  padding-top: 100px;
   background-color: #025bbf;
-  border-radius: 5%;
-
-  /* display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(6, 1fr); */
 
   display: flex;
   flex-wrap: wrap;
 
-  margin: 120px auto 50px auto;
+  margin: 100px auto 10px auto;
   padding: 10px;
 }
 
@@ -39,10 +52,20 @@ body {
 
   background-color: #ffffff;
   border-radius: 50%;
-  border: 5px solid navy;
+  border: 2px solid navy;
   box-shadow: 2px 2px 2px black;
   display: flex;
   flex-grow: 1;
+}
+
+.tile::before {
+  margin: -15px -12px;
+  position: absolute;
+  content: "";
+  width: 90px;
+  height: 90px;
+  background-image: radial-gradient(transparent 50%, #1757d7 60%);
+  z-index: 1;
 }
 
 /* hover disc */
@@ -86,7 +109,7 @@ body {
   height: 100%;
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.5);
-  padding-top: 350px;
+  padding-top: 150px;
 }
 
 .alert-content {
@@ -102,15 +125,16 @@ body {
   font-size: 16px;
   font-family: Avenir Next;
   background-color: #ffffff;
-  color: #025bbf;
-  border: 3px solid #025bbf;
+  color: #28b48a;
+  border: 3px solid hsl(162, 64%, 43%);
   border-radius: 50px;
   padding: 10px 20px;
   margin: 20px;
 }
 
 .button:hover {
-  background-color: #025bbf;
+  /* background-color: #025bbf; */
+  background-color: #28b48a;
   color: #ffffff;
   transition: 0.7s;
 }
@@ -140,4 +164,24 @@ body {
   width: 50px;
   background-color: #ffd933;
   border: 4px solid #dfb500;
+}
+
+@media only screen and (max-width: 690px) {
+  img {
+    width: 80%;
+    height: 80%;
+  }
+
+  .legend-container {
+    font-size: 18px;
+    margin-bottom: 0;
+  }
+
+  .legend-container div {
+    margin: auto 10px;
+  }
+
+  .button {
+    font-size: 14px;
+  }
 }

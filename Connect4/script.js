@@ -1,3 +1,8 @@
+window.onload = function () {
+  document.querySelector(".main-game").style.display = "none";
+  document.getElementById("start-game").addEventListener("click", setGame);
+};
+
 // Declare variables
 const playerOne = "1";
 const playerTwo = "2";
@@ -17,11 +22,7 @@ const timerContainer = document.querySelector(".timer-container");
 let interval;
 let counter;
 
-// window.onload = function () {
-setGame();
-// };
-
-// any better way writing this portion
+// any better way to write this portion
 // why can't clearInterval stop counter when game over?
 function setTimer() {
   let counter = 10;
@@ -63,6 +64,9 @@ function switchPlayer() {
 
 // creating the board and tiles
 function setGame() {
+  document.querySelector(".homescreen").style.display = "none";
+  document.querySelector(".main-game").style.display = "";
+
   board = [];
   currCol = [5, 5, 5, 5, 5, 5, 5];
 
@@ -118,11 +122,11 @@ function setColumn() {
   if (currPlayer == playerOne) {
     disc.classList.add("red");
     currPlayer = playerTwo;
-    console.log(currPlayer);
+    // console.log(currPlayer);
   } else {
     disc.classList.add("yellow");
     currPlayer = playerOne;
-    console.log(currPlayer);
+    // console.log(currPlayer);
   }
 
   y -= 1; //updating row height of placed disc
@@ -263,7 +267,7 @@ function chooseColumn(col) {
   updateHover();
 }
 
-// reset the board and tiles
+// reset the game board
 function resetGame() {
   location.reload();
 }

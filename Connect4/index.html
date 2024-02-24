@@ -7,27 +7,38 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>Connect Four</h1>
-    <p>
-      Objective: Be the first player to get four of your coloured discs in a row
-      - horizontally, vertically or diagonally
-    </p>
-    <!-- <h2 id="winner"></h2> -->
-    <h2 class="player-container">Player 1 drop a disc to start game</h2>
-    <h3 class="timer-container">[Placeholder] Timer Here</h3>
-    <div class="board" id="game-board"></div>
-    <div class="alert-container">
-      <div class="alert-content">
-        <h1>Game Over!</h1>
-        <h2 id="message">xxx Wins!!</h2>
-        <button class="button" id="restart">Play Again</button>
-      </div>
+    <div class="homescreen">
+      <img src="connect4_logo.png" />
+      <button class="button" id="start-game">Start Game</button>
     </div>
-    <div class="legend-container">
-      <div id="player1">Player 1</div>
-      <div id="player1-disc"></div>
-      <div id="player2">Player 2</div>
-      <div id="player2-disc"></div>
+    <div class="main-game">
+      <h1>Welcome to the exhilarating world of Connect Four!</h1>
+      <p>
+        Objective: Be the first to line up four of your colored discs
+        vertically, horizontally, or diagonally while outwitting your opponent
+        with lightning-fast moves. But here's the twist: you've got to be quick
+        on your feet because there's a timer ticking away, daring you to make
+        your move before it's your opponent's turn! With every second counting,
+        can you outsmart your rival and achieve victory in this high-speed
+        battle of wits?
+      </p>
+      <h3>Get ready to drop, block, and connect your way to glory!</h3>
+      <h2 class="player-container">Player 1 drop a disc to start game</h2>
+      <h3 class="timer-container"></h3>
+      <div class="board" id="game-board"></div>
+      <div class="alert-container">
+        <div class="alert-content">
+          <h1>Game Over!</h1>
+          <h2 id="message">xxx Wins!!</h2>
+          <button class="button" id="restart">Play Again</button>
+        </div>
+      </div>
+      <div class="legend-container">
+        <div id="player1">Player 1</div>
+        <div id="player1-disc"></div>
+        <div id="player2">Player 2</div>
+        <div id="player2-disc"></div>
+      </div>
     </div>
     <script src="script.js"></script>
   </body>
