@@ -1,4 +1,4 @@
-# <Connect4: The Ultimate High-Speed Battle of Wits!>
+# Connect4: The Ultimate High-Speed Battle of Wits!
 
 Welcome to the world of Connect4, where strategic brilliance meets the thrill of competition! Picture this: a vibrant battlefield of red and yellow, where players face off in a quest to line up four of their colored discs in a row. But wait, it's not just about dropping pieces randomly and hoping for the best—it's a cunning game of wits and tactical maneuvering!
 
@@ -21,7 +21,7 @@ So gather your courage, summon your inner genius, and prepare for the ultimate h
 
 # Getting Started
 
-[Click to Play Connect Four!](https://hongpeichua94.github.io/GA-SEI-PROJ/Connect4/)
+[Click to Play Connect4!](https://hongpeichua94.github.io/GA-SEI-PROJ/Connect4/)
 
 # Next Steps / Future Enhancement
 
@@ -30,6 +30,6 @@ So gather your courage, summon your inner genius, and prepare for the ultimate h
 
 # References
 
-- [How to Build Connect 4 with Javascript HTML CSS](https://www.youtube.com/watch?v=4ARsthVnCTg&t=1238s)
-- [Coding Connect 4 with JavaScript](https://www.youtube.com/watch?v=kA9OOeUXXSU)
+- [How to Build Connect4 with Javascript HTML CSS](https://www.youtube.com/watch?v=4ARsthVnCTg&t=1238s)
+- [Coding Connect4 with JavaScript](https://www.youtube.com/watch?v=kA9OOeUXXSU)
 - [Connect4 Logo Asset](https://www.microsoft.com/en-ai/p/four-in-a-row-connect-4/9n18tqf8909s#activetab=pivot:overviewtab)
