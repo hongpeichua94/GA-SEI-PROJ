@@ -19,11 +19,6 @@ const restartButton = document.getElementById("restart");
 const playerMessage = document.querySelector(".player-container");
 const timerContainer = document.querySelector(".timer-container");
 
-// let interval;
-// let counter;
-
-// any better way to write this portion
-// why can't clearInterval stop counter when game over?
 function setTimer() {
   let counter = 10;
 
@@ -38,10 +33,7 @@ function setTimer() {
       setTimer();
     }
 
-    if (
-      (currPlayer == playerOne && counter > 0) ||
-      (currPlayer == playerTwo && counter > 0)
-    ) {
+    if (counter > 0) {
       document.addEventListener("click", () => {
         clearInterval(interval);
       });
@@ -63,7 +55,7 @@ function switchPlayer() {
   }
 }
 
-// creating the board and tiles
+// To create the game board and tiles
 function setGame() {
   document.querySelector(".homescreen").style.display = "none";
   document.querySelector(".main-game").style.display = "";
@@ -72,11 +64,11 @@ function setGame() {
   currCol = [5, 5, 5, 5, 5, 5, 5];
 
   for (let y = 0; y < rows; y++) {
-    let row = []; //create row
+    let row = []; // Create row
     for (let x = 0; x < cols; x++) {
       row.push(" ");
 
-      // to create <div id="row-col" class="tile"> for 42 tiles
+      // Create <div id="row-col" class="tile"> for 42 tiles
       let tile = document.createElement("div");
       tile.id = y.toString() + "-" + x.toString();
       tile.classList.add("tile");
@@ -94,13 +86,13 @@ function setGame() {
   }
 }
 
-// drop disc into column
+// Drop disc into column
 function setColumn() {
   if (gameOver) {
     return;
   }
 
-  // get coords of tile clicked
+  // Get coords of tile clicked
   let coords = this.id.split("-");
   let y = parseInt(coords[0]);
   let x = parseInt(coords[1]);
@@ -119,25 +111,21 @@ function setColumn() {
   disc.dataset.player = currPlayer;
   tile.appendChild(disc);
 
-  // switching player
+  // Setting disc colour for respective players
   if (currPlayer == playerOne) {
     disc.classList.add("red");
     currPlayer = playerTwo;
-    // console.log(currPlayer);
   } else {
     disc.classList.add("yellow");
     currPlayer = playerOne;
-    // console.log(currPlayer);
   }
 
-  y -= 1; //updating row height of placed disc
-  currCol[x] = y; //update currCol array
-  // console.log(board);
+  y -= 1; // Update row height of placed disc
+  currCol[x] = y; // Update currCol array
 
-  // upate hovering piece
   updateHover();
 
-  // animate dropping disc --- styling: disc should drop behind the board - z-axis
+  // Animate dropping disc
   let unplacedDisc = document.querySelector("[data-placed='false']");
   let unplacedY = unplacedDisc.getBoundingClientRect().y;
   let placedY = disc.getBoundingClientRect().y;
@@ -162,7 +150,7 @@ function setColumn() {
 }
 
 function checkWinner() {
-  //check for horizontal wins
+  // Check for horizontal wins
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols - 3; x++) {
       if (board[y][x] != " ") {
@@ -177,7 +165,7 @@ function checkWinner() {
     }
   }
 
-  //check for vertical wins
+  // Check for vertical wins
   for (let x = 0; x < cols; x++) {
     for (let y = 0; y < rows - 3; y++) {
       if (board[y][x] != " ") {
@@ -192,7 +180,7 @@ function checkWinner() {
     }
   }
 
-  // diagonal bottom left to top right
+  // Check for diagonal bottom left to top right wins
   for (let y = 3; y < rows; y++) {
     for (let x = 0; x < cols - 3; x++) {
       if (board[y][x] != " ") {
@@ -207,7 +195,7 @@ function checkWinner() {
     }
   }
 
-  // diagonal top left to bottom right
+  // Check for diagonal top left to bottom right wins
   for (let y = 0; y < rows - 3; y++) {
     for (let x = 0; x < cols - 3; x++) {
       if (board[y][x] != " ") {
@@ -223,24 +211,22 @@ function checkWinner() {
   }
 }
 
+// Game over messages
 function setWinner(y, x) {
-  // let winner = document.getElementById("winner");
   const alertContainer = document.querySelector(".alert-container");
   const alertMessage = document.getElementById("message");
 
   if (board[y][x] == playerOne) {
-    // winner.innerText = "Player 1 Wins";
     alertContainer.style.display = "block";
     alertMessage.innerText = "Player 1 Wins!! 🎉";
   } else {
-    // winner.innerText = "Player 2 Wins";
     alertContainer.style.display = "block";
     alertMessage.innerText = "Player 2 Wins!! 🎉";
   }
   gameOver = true;
 }
 
-// remove disc when moved away from column
+// Remove disc when moved away from column
 function removeHoverDisc() {
   let unplacedDisc = document.querySelector("[data-placed='false']");
   if (unplacedDisc) {
@@ -251,7 +237,7 @@ function removeHoverDisc() {
 function updateHover() {
   removeHoverDisc();
 
-  // add disc when column is not full
+  // Add disc when column is not full
   if (currCol[hoverColumn] > -1) {
     let tile = document.getElementById("game-board").children[hoverColumn];
     let disc = document.createElement("div");
@@ -262,13 +248,13 @@ function updateHover() {
   }
 }
 
-// disc to hover over grid
+// Disc to hover over grid
 function chooseColumn(col) {
   hoverColumn = col;
   updateHover();
 }
 
-// reset the game board
+// Reset the game board
 function resetGame() {
   location.reload();
 }
