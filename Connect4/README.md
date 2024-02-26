@@ -8,10 +8,10 @@ So gather your courage, summon your inner genius, and prepare for the ultimate h
 
 # Screenshot
 
-<img src="homescreen.png">
-<img src="game1.png">
-<img src="game2.png">
-<img src="gameover.png">
+<img src="./assets/homescreen.png">
+<img src="./assets/game1.png">
+<img src="./assets/game2.png">
+<img src="./assets/gameover.png">
 
 # Technologies Used
 
@@ -33,3 +33,5 @@ So gather your courage, summon your inner genius, and prepare for the ultimate h
 - [How to Build Connect4 with Javascript HTML CSS](https://www.youtube.com/watch?v=4ARsthVnCTg&t=1238s)
 - [Coding Connect4 with JavaScript](https://www.youtube.com/watch?v=kA9OOeUXXSU)
 - [Connect4 Logo Asset](https://www.microsoft.com/en-ai/p/four-in-a-row-connect-4/9n18tqf8909s#activetab=pivot:overviewtab)
+
+[def]: omescreen.pn
