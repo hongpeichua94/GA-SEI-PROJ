@@ -19,8 +19,8 @@ const restartButton = document.getElementById("restart");
 const playerMessage = document.querySelector(".player-container");
 const timerContainer = document.querySelector(".timer-container");
 
-let interval;
-let counter;
+// let interval;
+// let counter;
 
 // any better way to write this portion
 // why can't clearInterval stop counter when game over?
@@ -30,26 +30,27 @@ function setTimer() {
   const interval = setInterval(function () {
     playerMessage.innerText = `Player ${currPlayer} is making a move...`;
     timerContainer.innerText = `${counter}s remaining`;
-    // console.log(`Player ${currPlayer} have ${counter}s remaining`);
     counter--;
 
     if (counter == 0) {
       switchPlayer();
       clearInterval(interval);
-      // console.log(`Times up. Player ${currPlayer}'s turn`);
       setTimer();
     }
 
-    if (currPlayer == playerOne && counter > 0) {
+    if (
+      (currPlayer == playerOne && counter > 0) ||
+      (currPlayer == playerTwo && counter > 0)
+    ) {
       document.addEventListener("click", () => {
         clearInterval(interval);
       });
     }
 
-    if (currPlayer == playerTwo && counter > 0) {
-      document.addEventListener("click", () => {
-        clearInterval(interval);
-      });
+    if (gameOver == true) {
+      clearInterval(interval);
+      playerMessage.innerText = "";
+      timerContainer.innerText = "";
     }
   }, 1000);
 }
@@ -226,6 +227,7 @@ function setWinner(y, x) {
   // let winner = document.getElementById("winner");
   const alertContainer = document.querySelector(".alert-container");
   const alertMessage = document.getElementById("message");
+
   if (board[y][x] == playerOne) {
     // winner.innerText = "Player 1 Wins";
     alertContainer.style.display = "block";
@@ -236,7 +238,6 @@ function setWinner(y, x) {
     alertMessage.innerText = "Player 2 Wins!! 🎉";
   }
   gameOver = true;
-  // clearTimeout(counter);
 }
 
 // remove disc when moved away from column
