@@ -9,8 +9,7 @@ So gather your courage, summon your inner genius, and prepare for the ultimate h
 # Screenshot
 
 <img src="./assets/homescreen.png">
-<img src="./assets/game1.png">
-<img src="./assets/game2.png">
+<img src="./assets/game.gif">
 <img src="./assets/gameover.png">
 
 # Technologies Used
@@ -21,7 +20,15 @@ So gather your courage, summon your inner genius, and prepare for the ultimate h
 
 # Getting Started
 
-[Click to Play Connect4!](https://hongpeichua94.github.io/GA-SEI-PROJ/Connect4/)
+Number of players required: 2
+
+Players select their colors, red or yellow, and take turns dropping their colored discs into the columns. It's crucial to strategize quickly as there's a time limit (10 seconds) for each move, ensuring the game's pace remains brisk and engaging.
+
+The objective remains the same: be the first to form a line of four of your own discs horizontally, vertically, or diagonally while blocking your opponent's attempts.
+
+Keep your wits sharp and your moves swift to secure victory in this fast-paced game of skill and foresight.
+
+🎮[Click to Start Game](https://hongpeichua94.github.io/GA-SEI-PROJ/Connect4/)
 
 # Next Steps / Future Enhancement
 
