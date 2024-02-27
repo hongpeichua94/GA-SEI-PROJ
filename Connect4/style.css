@@ -133,7 +133,6 @@ p {
 }
 
 .button:hover {
-  /* background-color: #025bbf; */
   background-color: #28b48a;
   color: #ffffff;
   transition: 0.7s;
