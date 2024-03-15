@@ -1,0 +1,24 @@
+.horizontalbar img {
+  width: 60px;
+  align-self: center;
+  justify-content: center;
+  /* transition: transform 0.3s ease-in-out; */
+}
+
+/* .horizontalbar img:hover {
+  transform: scale(1.3);
+} */
+
+.horizontalbar {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 90px;
+  font-size: 14px;
+  text-transform: capitalize;
+  transition: transform 0.3s ease-in-out;
+}
+
+.horizontalbar:hover {
+  transform: scale(1.3);
+}

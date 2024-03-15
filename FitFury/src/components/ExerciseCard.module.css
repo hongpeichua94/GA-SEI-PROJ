@@ -1,0 +1,11 @@
+.card {
+  background-color: white;
+  margin: 20px;
+  padding: 10px;
+  border: 2px dotted black;
+  text-transform: capitalize;
+  transition: transform 0.3s ease-in-out;
+}
+.card:hover {
+  transform: scale(1.1);
+}

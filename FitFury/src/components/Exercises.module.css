@@ -1,0 +1,28 @@
+.exercises {
+  background-color: smokewhite;
+  position: absolute;
+  color: black;
+  text-align: center;
+}
+
+.exercises h3 {
+  margin: 20px 0px;
+  color: blue;
+}
+
+.group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border: 5px solid green;
+}
+
+.group img {
+  width: 30vh;
+  margin: 30px;
+}
+
+.pagination {
+  align-self: center;
+  margin: 10px;
+}
