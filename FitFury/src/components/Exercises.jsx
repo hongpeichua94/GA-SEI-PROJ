@@ -24,8 +24,8 @@ const Exercises = (props) => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      "X-RapidAPI-Key": "9abd5b6bbfmsh57cfb84930427e7p1433f5jsn7ff6d20dc2e4",
-      //   "X-RapidAPI-Key": import.meta.env.API_KEY,
+
+      "X-RapidAPI-Key": import.meta.env.API_KEY,
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
     },
   };
