@@ -9,7 +9,7 @@ const ExerciseCard = (props) => {
         <img
           src={props.exercise.gifUrl}
           alt={props.exercise.name}
-          Loading="lazy"
+          loading="lazy"
         ></img>
         <div className="row">
           <div className="col-md-1"></div>

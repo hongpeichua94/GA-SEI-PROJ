@@ -12,8 +12,7 @@ const SearchExercises = (props) => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-
-      "X-RapidAPI-Key": import.meta.env.API_KEY,
+      "X-RapidAPI-Key": import.meta.env.VITE_RAPID_API_KEY,
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
     },
   };

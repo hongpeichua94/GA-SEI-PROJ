@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styles from "./Exercises.module.css";
 import ExerciseCard from "./ExerciseCard";
 import Pagination from "@mui/material/Pagination";
-import BodyPart from "./BodyPart";
 
 const Exercises = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,8 +23,7 @@ const Exercises = (props) => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-
-      "X-RapidAPI-Key": import.meta.env.API_KEY,
+      "X-RapidAPI-Key": import.meta.env.VITE_RAPID_API_KEY,
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
     },
   };

@@ -6,9 +6,6 @@ const HeroBanner = () => {
     <div className={styles.herobanner}>
       <h1>TITLE PLACEHOLDER</h1>
       <p>some text here</p>
-      {/* <button className="btn btn-primary" href="#exercises">
-        Explore Exercises
-      </button> */}
     </div>
   );
 };

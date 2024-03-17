@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./NavBar.module.css";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const NavBar = () => {
   return (
@@ -8,7 +8,6 @@ const NavBar = () => {
       <nav>
         <ul>
           <li>
-            {/* <Link to="/main">Main</Link> */}
             <NavLink
               className={(navData) => (navData.isActive ? styles.active : "")}
               to="/home"
@@ -17,20 +16,19 @@ const NavBar = () => {
             </NavLink>
           </li>
           <li>
-            {/* <Link to="/members">Members</Link> */}
-            <NavLink
-              className={(navData) => (navData.isActive ? styles.active : "")}
-              to="/exercises"
-            >
-              Exercises
-            </NavLink>
-          </li>
-          <li>
             <NavLink
               className={(navData) => (navData.isActive ? styles.active : "")}
               to="/favourites"
             >
               Favourites
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className={(navData) => (navData.isActive ? styles.active : "")}
+              to="/personal-trainer"
+            >
+              Find Trainer
             </NavLink>
           </li>
         </ul>
