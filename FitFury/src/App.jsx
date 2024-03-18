@@ -4,7 +4,7 @@ import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
 import ExerciseDetail from "./pages/ExerciseDetail";
 import Favourites from "./pages/Favourites";
-import FindTrainer from "./pages/FindTrainer";
+// import FindTrainer from "./pages/FindTrainer";
 import NotFound from "./pages/NotFound";
 
 function App() {
