@@ -10,7 +10,7 @@ Unleash your inner beast and unleash the power of FitFury today. Let nothing sta
 
 <img src="./src/assets/homescreen.png">
 <img src="./src/assets/search.gif">
-<img src="./src/assets/favourite.gif">
+<img src="./src/assets/favourite.png">
 
 # Technologies Used
 
