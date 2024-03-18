@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styles from "./FavouritesCard.module.css";
+import styles from "./Favourites.module.css";
 
 const FavouritesCard = (props) => {
   const removeFavourite = async () => {
@@ -24,21 +24,23 @@ const FavouritesCard = (props) => {
   return (
     <div className={styles.card}>
       <Link to={`/exercise/${props.eid}`}>
+        <h5>{props.name}</h5>
         <img src={props.gifUrl} alt={props.name} loading="lazy"></img>
-        <div className="row">
-          <button className={`col-md-4 btn btn-primary ${styles.tag}`}>
+        <div className={styles.row}>
+          <button className={`col-md-4 ${styles.tagbodypart}`}>
             {props.bodyPart}
           </button>
           <div className="col-md-1"></div>
-          <button className="col-md-4 btn btn-secondary">{props.target}</button>
-          <div className="row">
-            <h5>{props.name}</h5>
-          </div>
+          <button className={`col-md-4 ${styles.tagtarget}`}>
+            {props.target}
+          </button>
         </div>
       </Link>
-      <button className="btn btn-danger" onClick={removeFavourite}>
-        Remove from Favourites
-      </button>
+      <div className={styles.row}>
+        <button className={styles.delbtn} onClick={removeFavourite}>
+          Remove from Favourites
+        </button>
+      </div>
     </div>
   );
 };

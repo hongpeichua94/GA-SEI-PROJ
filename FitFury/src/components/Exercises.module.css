@@ -1,20 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Stick+No+Bills:wght@200..800&display=swap");
+
 .exercises {
-  background-color: smokewhite;
+  background-color: #121212;
   position: absolute;
   color: black;
   text-align: center;
+  font-family: "Tahoma", sans-serif;
 }
 
 .exercises h3 {
-  margin: 20px 0px;
-  color: blue;
+  font-family: "Stick No Bills", sans-serif;
+  font-size: 40px;
+  font-weight: 400;
+  font-style: normal;
+  color: #b4ff01;
+  text-transform: capitalize;
+  text-align: center;
+  margin: 20px;
 }
 
 .group {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  border: 5px solid green;
 }
 
 .group img {
@@ -22,7 +30,15 @@
   margin: 30px;
 }
 
+.paginationContainer {
+  display: flex;
+  justify-content: center;
+  background-color: #b4ff01;
+  margin-top: 50px;
+}
+
 .pagination {
-  align-self: center;
+  display: flex;
+  align-items: center;
   margin: 10px;
 }

@@ -1,6 +1,6 @@
 .navbar {
   height: 4rem;
-  background-color: #0b1815;
+  background-color: #121212;
 }
 .navbar nav {
   height: 100%;
@@ -25,7 +25,7 @@
 .navbar a:hover,
 .navbar a:active,
 .navbar a.active {
-  color: whitesmoke;
+  color: white;
   padding-bottom: 0.25rem;
-  border-bottom: 4px solid whitesmoke;
+  border-bottom: 4px solid #b4ff01;
 }

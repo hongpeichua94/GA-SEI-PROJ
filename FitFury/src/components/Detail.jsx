@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styles from "./Detail.module.css";
 
 const Detail = (props) => {
   // const [favourites, setFavourites] = useState([]);
@@ -65,21 +66,26 @@ const Detail = (props) => {
   };
 
   return (
-    <div className="container">
-      <div className="row">
+    <div className={styles.container}>
+      <div className={`row ${styles.detailImage}`}>
         <img
           src={props.exerciseDetail.gifUrl}
           alt={props.exerciseDetail.name}
-          id="detail-image"
         />
       </div>
-      <div className="row">
+      <div className={`row ${styles.detailText}`}>
         <h1>{props.exerciseDetail.name}</h1>
         <p>{props.exerciseDetail.instructions}</p>
-        <p>Target: {props.exerciseDetail.target}</p>
-        <p>Equipment: {props.exerciseDetail.equipment}</p>
+        <p className={styles.capitalize}>
+          Target: {props.exerciseDetail.target}
+        </p>
+        <p className={styles.capitalize}>
+          Equipment: {props.exerciseDetail.equipment}
+        </p>
         <button
-          className={buttonDisabled ? "btn btn-secondary" : "btn btn-primary"}
+          className={
+            buttonDisabled ? `${styles.disabled}` : `${styles.enabled}`
+          }
           onClick={addFavourites}
           disabled={buttonDisabled}
         >

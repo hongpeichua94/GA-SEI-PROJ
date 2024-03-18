@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./HorizontalBar.module.css";
-import icon from "../assets/dumbbell.png";
+import icon from "../assets/weights.png";
 
 const BodyPart = (props) => {
   const handleFilter = () => {

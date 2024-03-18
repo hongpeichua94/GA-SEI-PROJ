@@ -62,17 +62,20 @@ const SearchExercises = (props) => {
 
   return (
     <div className={styles.searchbar}>
-      <h2>PLACEHOLDER SOME TEXT</h2>
-      <input
-        value={search}
-        onChange={handleChange}
-        placeholder="Search Exercises"
-        type="text"
-      ></input>
-      <button className="search-btn btn btn-primary" onClick={handleSearch}>
-        Search
-      </button>
-
+      <p>
+        Unlock 1300+ personalized exercises to supercharge your workout routine!
+      </p>
+      <div className={styles.searchcontainer}>
+        <input
+          value={search}
+          onChange={handleChange}
+          placeholder="Search by exercises, equipment or target muscles"
+          type="text"
+        ></input>
+        <button className="search-btn" onClick={handleSearch}>
+          SEARCH
+        </button>
+      </div>
       <br />
       <HorizontalBar
         data={bodyParts}

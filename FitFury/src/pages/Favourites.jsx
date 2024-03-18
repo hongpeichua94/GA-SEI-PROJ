@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import FavouritesCard from "../components/FavouritesCard";
+import styles from "../components/Favourites.module.css";
 
 const Favourites = () => {
   const [currentFavourites, setCurrentFavourites] = useState([]);
@@ -33,8 +34,8 @@ const Favourites = () => {
   };
 
   return (
-    <div>
-      <h1>Favourites List</h1>
+    <div className={styles.container}>
+      <h1>Favourite Exercises</h1>
       {currentFavourites.map((item) => {
         const { id, fields } = item;
         return (

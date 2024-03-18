@@ -13,11 +13,11 @@ const ExerciseCard = (props) => {
         ></img>
         <div className="row">
           <div className="col-md-1"></div>
-          <button className={`col-md-4 btn btn-primary ${styles.tag}`}>
+          <button className={`col-md-4 ${styles.tagbodypart}`}>
             {props.exercise.bodyPart}
           </button>
           <div className="col-md-1"></div>
-          <button className="col-md-4 btn btn-secondary">
+          <button className={`col-md-4 ${styles.tagtarget}`}>
             {props.exercise.target}
           </button>
         </div>

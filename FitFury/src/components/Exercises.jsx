@@ -58,23 +58,28 @@ const Exercises = (props) => {
 
   return (
     <div className={styles.exercises} id="exercises">
-      <h3>Showing Results</h3>
+      <h3>related exercises: </h3>
       <div className={styles.group}>
         {currentExercises.map((item, idx) => (
           <ExerciseCard key={idx} exercise={item}></ExerciseCard>
         ))}
       </div>
-      <div className={styles.pagination}>
-        {props.exercises.length > 9 && (
-          <Pagination
-            count={Math.ceil(props.exercises.length / exercisesPerPage)}
-            shape="rounded"
-            defaultPage={1}
-            page={currentPage}
-            onChange={paginate}
-            size="large"
-          />
-        )}
+      <div className={`${styles.paginationContainer}`}>
+        <div className={`${styles.pagination}`}>
+          {props.exercises.length > 9 && (
+            <Pagination
+              count={Math.ceil(props.exercises.length / exercisesPerPage)}
+              shape="rounded"
+              defaultPage={1}
+              page={currentPage}
+              onChange={paginate}
+              size="medium"
+              color="standard"
+            />
+          )}
+          <br />
+          <br />
+        </div>
       </div>
     </div>
   );

@@ -23,14 +23,14 @@ const NavBar = () => {
               Favourites
             </NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink
               className={(navData) => (navData.isActive ? styles.active : "")}
               to="/personal-trainer"
             >
               Find Trainer
             </NavLink>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </header>
