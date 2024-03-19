@@ -40,7 +40,7 @@ const Exercises = (props) => {
 
       if (props.bodyPart === "all") {
         exercisesData = await getData(
-          "https://exercisedb.p.rapidapi.com/exercises?limit=500",
+          "https://exercisedb.p.rapidapi.com/exercises?limit=1200",
           exercisesOptions
         );
       } else {

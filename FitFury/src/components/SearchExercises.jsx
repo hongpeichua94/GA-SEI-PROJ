@@ -41,7 +41,7 @@ const SearchExercises = (props) => {
   const handleSearch = async () => {
     if (search) {
       const exercisesData = await getData(
-        "https://exercisedb.p.rapidapi.com/exercises?limit=500",
+        "https://exercisedb.p.rapidapi.com/exercises?limit=1200",
         exercisesOptions
       );
 
