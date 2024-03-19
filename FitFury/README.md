@@ -31,7 +31,7 @@ Get ready to transform your body and mind as you embark on a journey of self-dis
 
 Unleash your inner beast and unleash the power of FitFury today. Let nothing stand in your way as you embark on a journey of transformation, strength, and unwavering determination. With FitFury by your side, the only limit is the one you set for yourself. Let's ignite the fire within and conquer your fitness goals together!
 
-🔥 [POWER UP WITH EVERY REP NOW](https://fitfury.vercel.app/home) 🔥
+🔥 [POWER UP WITH EVERY REP NOW](https://fitfury.vercel.app) 🔥
 
 # Next Steps/Future Enhancement
 
