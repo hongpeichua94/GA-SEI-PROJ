@@ -8,9 +8,16 @@ Get ready to transform your body and mind as you embark on a journey of self-dis
 
 # Screenshot
 
+### Homescreen
 <img src="./src/assets/homescreen.png">
+
+### Search Results
 <img src="./src/assets/search.gif">
+
+### Exercise Detail
 <img src="./src/assets/exercise.gif">
+
+### Favourite
 <img src="./src/assets/favourite.png">
 
 # Technologies Used
