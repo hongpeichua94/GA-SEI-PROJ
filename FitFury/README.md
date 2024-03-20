@@ -42,9 +42,10 @@ Unleash your inner beast and unleash the power of FitFury today. Let nothing sta
 
 # Next Steps/Future Enhancement
 
-- Feature to create groups to store different favourite exercises
-- Feature to manage groups (ie. update group name)
-- Implement interest form to "Find Personal Trainer"
+- [Feature] Create groups to store different favourite exercises
+- [Feature] Manage groups of favourite exercises (ie. update group name)
+- [Feature] Call exercise video API from YouTube
+- [Feature] Interest form to "Find Personal Trainer"
 
 # References
 
