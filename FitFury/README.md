@@ -49,6 +49,7 @@ Unleash your inner beast and unleash the power of FitFury today. Let nothing sta
 
 # References
 
+- [Build and Deploy a Modern React Fitness Exercises App With APIs](https://www.youtube.com/watch?v=KBpoBc98BwM&t=86s)
 - [ExerciseDB API](https://rapidapi.com/justin-WFnsXH_t6/api/exercisedb)
 - [Airtable API](https://airtable.com/appIlGtCLc9ElGJsL/api/docs)
 - [Material UI](https://mui.com/material-ui/react-pagination/)
