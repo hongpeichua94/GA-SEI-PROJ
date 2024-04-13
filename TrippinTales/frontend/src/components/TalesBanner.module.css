@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
+.postBanner {
+  border: 2px solid rgb(0, 0, 0, 0.1);
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: rgb(251, 255, 254);
+  width: 100%;
+}
+
+.postBanner:hover {
+  transform: scale(1.02);
+}
+
+.bannerTitle {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.textLink {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+/* .postContainer {
+  position: relative; 
+
+}
+.deleteButton {
+  position: absolute; 
+  top: 70px; 
+  right: 10px; 
+  background-color: tomato;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+
+} */

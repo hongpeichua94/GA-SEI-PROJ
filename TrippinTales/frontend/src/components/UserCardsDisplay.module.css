@@ -1,0 +1,118 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+.profilePage {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+/*  */
+
+.title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  color: #131b23cc;
+  grid-column: 3 / 8;
+}
+
+.title2 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 30px;
+  font-weight: 500;
+  color: #131b23cc;
+  grid-column: 3 / 8;
+  grid-row: 3 / 3;
+}
+
+.input {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  grid-column: 3/8;
+  margin-top: 125px;
+  height: 40px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  color: #131b23cc;
+}
+
+.button {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  grid-column: 8/9;
+  margin-top: 125px;
+  height: 40px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #68a186;
+  color: white;
+}
+.button:hover {
+  background-color: #74b395;
+}
+
+.searched-user-card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #f6fcff;
+  padding: 2cqw;
+  cursor: pointer;
+  grid-column: 3 / 9;
+  grid-row: auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(3, 50px);
+  gap: 20px;
+}
+
+.searched-user-card:hover {
+  background-color: rgb(251, 255, 254);
+}
+
+/*  */
+
+.img {
+  font-family: "Montserrat", sans-serif;
+  position: relative;
+  justify-self: center;
+  margin-top: 10px;
+  object-fit: cover;
+  border: solid;
+  border-color: rgba(19, 27, 35, 0.2);
+  border-radius: 50%;
+  border-width: 2px;
+  width: 150px;
+  height: 150px;
+}
+
+.username {
+  font-family: "Montserrat", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  grid-row: 1/2;
+  grid-column: 2/5;
+  color: #131b23cc;
+}
+
+.name {
+  font-family: "Montserrat", sans-serif;
+  font-size: 21px;
+  font-weight: 500;
+  grid-row: 2/3;
+  grid-column: 2/5;
+  color: #131b23cc;
+}
+
+.greeting {
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  grid-row: 3/4;
+  grid-column: 2/5;
+  color: #131b23cc;
+}
