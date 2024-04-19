@@ -14,27 +14,27 @@ Trippin' Tales revolutionizes the travel experience by addressing the common pai
 
 #### Landing page for sign-ups and login
 
-<img src="./public/landingpage.gif">
+<img src="./frontend/public/landingpage.gif">
 
 
 #### Manage your profile and pen a tale on the profile page
 
-<img src="./public/profilepage.gif">
+<img src="./frontend/public/profilepage.gif">
 
 
 #### Manage your post and interact with other users in the comment section
 
-<img src="./public/postpage.gif">
+<img src="./frontend/public/postpage.gif">
 
 
 #### Search for fellow travelers by their username
 
-<img src="./public/usersearch.gif">
+<img src="./frontend/public/usersearch.gif">
 
 
 #### Make connections by following your favourite user
 
-<img src="./public/followfeature.gif">
+<img src="./frontend/public/followfeature.gif">
 
 
 
