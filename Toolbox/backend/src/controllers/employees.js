@@ -109,6 +109,7 @@ const updateEmployeeDetails = async (req, res) => {
   }
 };
 
+// EMPLOYEE TITLES
 const addEmployeeTitles = async (req, res) => {
   try {
     // Retrieve the employee id based on accounts email
@@ -180,7 +181,7 @@ const updateEmployeeTitles = async (req, res) => {
   }
 };
 
-// Search by work email > return employee id
+// Use to populate employee title history?
 const getEmployeeTitlesByEmail = async (req, res) => {
   try {
     let query = `SELECT employee_titles.* FROM employees JOIN employee_titles on employees.id = employee_titles.employee_id JOIN accounts on employees.account_id = accounts.uuid WHERE 1 = 1`;
