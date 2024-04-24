@@ -29,9 +29,9 @@ const register = async (req, res) => {
     const accountId = accountResult.rows[0].uuid;
 
     // Create an employee entry for the user in the employees table
-    await db.query(
+    const employeeResult = await db.query(
       `INSERT INTO employees (account_id, first_name, last_name, date_of_birth, gender, address, country, postal_code, phone, email, status, joined_date, created_at, updated_at) 
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12,  NOW(), NOW())`,
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12,  NOW(), NOW()) RETURNING id, joined_date`,
       [
         accountId,
         req.body.first_name,
@@ -46,6 +46,31 @@ const register = async (req, res) => {
         "ACTIVE",
         req.body.joined_date,
       ]
+    );
+
+    // Retrieve the id and joined_date of the newly created employee
+    const employeeId = employeeResult.rows[0].id;
+    const startDate = employeeResult.rows[0].joined_date;
+
+    // Retrieve the department_id based on the department name
+    const departmentResult = await db.query(
+      "SELECT id FROM departments WHERE name = $1",
+      [req.body.department]
+    );
+
+    if (departmentResult.rows.length === 0) {
+      return res
+        .status(400)
+        .json({ status: "error", msg: "Department does not exist" });
+    }
+
+    const departmentId = departmentResult.rows[0].id;
+
+    // Create title details for the employtee in the title_details table
+    await db.query(
+      `INSERT INTO employee_titles (employee_id, title, start_date, department_id, status, created_at, updated_at) 
+      VALUES ($1, $2, $3, $4, $5, NOW(), NOW())`,
+      [employeeId, req.body.title, startDate, departmentId, "ACTIVE"]
     );
 
     res.json({ status: "ok", msg: "User and employee created successfully" });
