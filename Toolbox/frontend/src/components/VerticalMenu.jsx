@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
 import {
   HomeOutlined,
   ProfileOutlined,
@@ -12,9 +14,9 @@ import { Breadcrumb, Layout, Menu, theme } from "antd";
 
 const { Header, Content, Footer, Sider } = Layout;
 
-function getItem(label, key, icon, children) {
+function getItem(label, path, icon, children) {
   return {
-    key,
+    path,
     icon,
     children,
     label,
@@ -22,19 +24,19 @@ function getItem(label, key, icon, children) {
 }
 
 const items = [
-  getItem("Home", "1", <HomeOutlined />),
-  getItem("My Profile", "2", <ProfileOutlined />),
-  getItem("Employee Directory", "3", <TeamOutlined />),
-  getItem("Leave Management", "sub1", <CalendarOutlined />, [
-    getItem("Request Time Off", "4"),
-    getItem("Pending Approval", "5"),
+  getItem("Home", "/dashboard", <HomeOutlined />),
+  getItem("My Profile", "/profile", <ProfileOutlined />),
+  getItem("Employee Directory", "/employee", <TeamOutlined />),
+  getItem("Leave Management", "/leave", <CalendarOutlined />, [
+    getItem("Request Time Off", "/leave/request"),
+    getItem("Pending Approval", "/leave/pending"),
   ]),
-  getItem("Expense Tracker", "sub2", <DollarOutlined />, [
-    getItem("Submit Expense", "6"),
-    getItem("Expense History", "8"),
+  getItem("Expense Tracker", "/expense", <DollarOutlined />, [
+    getItem("Submit Expense", "/expense/submit"),
+    getItem("Expense History", "/expense/history"),
   ]),
-  getItem("Knowledge Base", "9", <StarOutlined />),
-  getItem("Admin Console", "10", <FileOutlined />),
+  getItem("Knowledge Base", "/knowledge-base", <StarOutlined />),
+  getItem("Admin Console", "/admin", <FileOutlined />),
 ];
 
 const VerticalMenu = () => {
@@ -44,23 +46,28 @@ const VerticalMenu = () => {
   } = theme.useToken();
 
   return (
-    <Layout
-      style={{
-        minHeight: "100vh",
-      }}
-    >
+    <Layout style={{ minHeight: "100vh" }}>
       <Sider
-        // collapsible
+        collapsible
         collapsed={collapsed}
         onCollapse={(value) => setCollapsed(value)}
       >
         <div className="demo-logo-vertical" />
-        <Menu
+        {/* <Menu
           theme="dark"
           defaultSelectedKeys={["1"]}
           mode="inline"
           items={items}
-        />
+        /> */}
+        <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
+          {items.map((item) => (
+            <Menu.Item key={item.key} icon={item.icon}>
+              <Link to={item.path} style={{ textDecoration: "none" }}>
+                {item.label}
+              </Link>
+            </Menu.Item>
+          ))}
+        </Menu>
       </Sider>
     </Layout>
   );
