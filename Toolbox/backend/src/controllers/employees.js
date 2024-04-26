@@ -216,6 +216,33 @@ const getEmployeeTitlesByEmail = async (req, res) => {
   }
 };
 
+const getCurrentTitleByAccountId = async (req, res) => {
+  try {
+    const query = `
+    WITH summary AS ( 
+      SELECT 
+        b.* 
+      FROM employees a
+      JOIN employee_titles b on a.id = b.employee_id 
+      JOIN accounts c on a.account_id = c.uuid 
+      WHERE b.status = 'ACTIVE' 
+        AND a.account_id = $1
+      )
+      
+      SELECT 
+        summary.*,
+        departments.name as department_name
+      FROM summary
+      LEFT JOIN departments on summary.department_id = departments.id`;
+
+    const employee = await db.query(query, [req.params.account_id]);
+    res.json(employee.rows);
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "Error getting employee" });
+  }
+};
+
 module.exports = {
   getAllEmployees,
   getEmployeeByAccountId,
@@ -224,4 +251,5 @@ module.exports = {
   addEmployeeTitles,
   updateEmployeeTitles,
   getEmployeeTitlesByEmail,
+  getCurrentTitleByAccountId,
 };
