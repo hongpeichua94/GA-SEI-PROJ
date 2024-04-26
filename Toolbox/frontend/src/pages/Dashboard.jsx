@@ -106,11 +106,11 @@ const Dashboard = () => {
             }}
           >
             <h5>Home</h5>
-            <div className="profile">
+            <div className="dashboard-profile">
               <Space wrap size={16}>
                 <Avatar size={64} icon={<UserOutlined />} />
               </Space>
-              <div className="profile-text">
+              <div className="dashboard-profile-text">
                 <h4>
                   Hello, {employeeDetails.first_name}{" "}
                   {employeeDetails.last_name} have a great day!

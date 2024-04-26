@@ -32,16 +32,16 @@ body {
 }
 
 /* DASHBOARD PROFILE */
-.profile {
+.dashboard-profile {
   display: flex;
   justify-content: center;
 }
 
-.profile-text {
+.dashboard-profile-text {
   padding: 10px;
 }
 
-.profile-text p {
+.dashboard-profile-text p {
   margin-bottom: 0;
   color: grey;
   height: 50px;
