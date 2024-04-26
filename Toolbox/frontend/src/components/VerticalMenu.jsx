@@ -10,9 +10,9 @@ import {
   DollarOutlined,
   StarOutlined,
 } from "@ant-design/icons";
-import { Breadcrumb, Layout, Menu, theme } from "antd";
+import { Layout, Menu } from "antd";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Sider } = Layout;
 
 function getItem(label, path, icon, children) {
   return {
@@ -41,9 +41,6 @@ const items = [
 
 const VerticalMenu = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -53,12 +50,6 @@ const VerticalMenu = () => {
         onCollapse={(value) => setCollapsed(value)}
       >
         <div className="demo-logo-vertical" />
-        {/* <Menu
-          theme="dark"
-          defaultSelectedKeys={["1"]}
-          mode="inline"
-          items={items}
-        /> */}
         <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
           {items.map((item) => (
             <Menu.Item key={item.key} icon={item.icon}>
