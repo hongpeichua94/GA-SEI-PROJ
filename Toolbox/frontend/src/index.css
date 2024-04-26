@@ -20,3 +20,43 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+/* LOGIN PAGE */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  width: 100vw;
+}
+
+/* DASHBOARD PROFILE */
+.profile {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-text {
+  padding: 10px;
+}
+
+.profile-text p {
+  margin-bottom: 0;
+  color: grey;
+  height: 50px;
+}
+
+/* DASHBOARD CONTENT */
+.content-container {
+  display: flex;
+}
+
+/* DASHBOARD NEW EMPLOYEE ANNOUNCEMENT */
+.announcement-row {
+  display: flex;
+}
+
+.avatar {
+  margin-right: 10px;
+}
