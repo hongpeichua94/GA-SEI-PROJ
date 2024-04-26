@@ -53,7 +53,7 @@ const Dashboard = () => {
               padding: 10,
               margin: "0 16px",
               height: 180,
-              maxWidth: 1155,
+              maxWidth: "90vw",
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
             }}
@@ -80,7 +80,7 @@ const Dashboard = () => {
                 style={{
                   padding: 24,
                   minHeight: 360,
-                  maxWidth: 750,
+                  maxWidth: "60vw",
                   background: colorBgContainer,
                   borderRadius: borderRadiusLG,
                 }}
@@ -88,6 +88,7 @@ const Dashboard = () => {
                 {" "}
                 <h5>Welcome new joiners to Company! 🎉</h5>
                 <hr />
+                <br />
                 <NewEmployee></NewEmployee>
               </div>
             </Content>
@@ -102,7 +103,7 @@ const Dashboard = () => {
                 style={{
                   padding: 24,
                   minHeight: 360,
-                  maxWidth: 450,
+                  maxWidth: "40vw",
                   background: colorBgContainer,
                   borderRadius: borderRadiusLG,
                 }}
@@ -115,6 +116,9 @@ const Dashboard = () => {
           </div>
           <Footer
             style={{
+              position: "fixed",
+              bottom: 0,
+              right: 0,
               textAlign: "center",
             }}
           >
