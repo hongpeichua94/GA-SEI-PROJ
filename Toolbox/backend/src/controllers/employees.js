@@ -13,6 +13,19 @@ const getAllEmployees = async (req, res) => {
   }
 };
 
+const getEmployeeByAccountId = async (req, res) => {
+  try {
+    const employee = await db.query(
+      "SELECT * FROM employees WHERE account_id = $1",
+      [req.params.account_id]
+    );
+    res.json(employee.rows);
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "Error getting employee" });
+  }
+};
+
 // Use for employee directory search function
 const getEmployeeByEmailOrName = async (req, res) => {
   try {
@@ -205,6 +218,7 @@ const getEmployeeTitlesByEmail = async (req, res) => {
 
 module.exports = {
   getAllEmployees,
+  getEmployeeByAccountId,
   getEmployeeByEmailOrName,
   updateEmployeeDetails,
   addEmployeeTitles,

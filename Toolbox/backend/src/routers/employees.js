@@ -1,6 +1,7 @@
 const express = require("express");
 const {
   getAllEmployees,
+  getEmployeeByAccountId,
   getEmployeeByEmailOrName,
   updateEmployeeDetails,
   addEmployeeTitles,
@@ -12,6 +13,8 @@ const router = express.Router();
 
 router.get("/employees", getAllEmployees);
 router.get("/employees/search", getEmployeeByEmailOrName);
+
+router.get("/employee/:account_id", getEmployeeByAccountId);
 router.patch("/employee/:account_id", updateEmployeeDetails);
 router.put("/employee/titles", addEmployeeTitles);
 router.patch("/employee/titles/:uuid", updateEmployeeTitles);
