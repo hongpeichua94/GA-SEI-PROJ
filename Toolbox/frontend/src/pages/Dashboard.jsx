@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import useFetch from "../hooks/useFetch";
+import UserContext from "../context/user";
+
+// COMPONENTS
 import NavBar from "../components/NavBar";
 import VerticalMenu from "../components/VerticalMenu";
-
 import NewEmployee from "../components/NewEmployee";
 
+// ANT DESIGN
 import { Breadcrumb, Layout, theme } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Space } from "antd";
@@ -11,9 +15,52 @@ import { Avatar, Space } from "antd";
 const { Header, Content, Footer, Sider } = Layout;
 
 const Dashboard = () => {
+  const userCtx = useContext(UserContext);
+  const fetchData = useFetch();
+  const [employeeDetails, setEmployeeDetails] = useState({});
+  const [employeeCurrentTitle, setEmployeeCurrentTitle] = useState({});
+
+  const getEmployeeInfo = async () => {
+    const res = await fetchData(
+      `/api/employee/${userCtx.accountId}`,
+      "GET",
+      undefined,
+      userCtx.accessToken
+    );
+
+    if (res.ok) {
+      console.log(res.data[0]);
+      setEmployeeDetails(res.data[0]);
+    } else {
+      console.log(res.data);
+    }
+  };
+
+  const getEmployeeCurrentTitle = async () => {
+    const res = await fetchData(
+      `/api/employee/titles/${userCtx.accountId}`,
+      "GET",
+      undefined,
+      userCtx.accessToken
+    );
+
+    if (res.ok) {
+      console.log(res.data[0]);
+      setEmployeeCurrentTitle(res.data[0]);
+    } else {
+      console.log(res.data);
+    }
+  };
+
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  useEffect(() => {
+    getEmployeeInfo();
+    getEmployeeCurrentTitle();
+  }, [userCtx.accountId]);
+
   return (
     <div className="dashboard">
       <NavBar></NavBar>
@@ -64,8 +111,14 @@ const Dashboard = () => {
                 <Avatar size={64} icon={<UserOutlined />} />
               </Space>
               <div className="profile-text">
-                <h4>Hello employee_name</h4>
-                <p>insert role | insert department</p>
+                <h4>
+                  Hello, {employeeDetails.first_name}{" "}
+                  {employeeDetails.last_name} have a great day!
+                </h4>
+                <p>
+                  {employeeCurrentTitle.title} |{" "}
+                  {employeeCurrentTitle.department_name} Department
+                </p>
               </div>
             </div>
           </Header>
@@ -114,7 +167,7 @@ const Dashboard = () => {
               </div>
             </Content>
           </div>
-          <Footer
+          {/* <Footer
             style={{
               position: "fixed",
               bottom: 0,
@@ -123,7 +176,7 @@ const Dashboard = () => {
             }}
           >
             Ant Design ©{new Date().getFullYear()} Created by Ant UED
-          </Footer>
+          </Footer> */}
         </Layout>
       </Layout>
     </div>
