@@ -2,8 +2,9 @@ const db = require("../db/db");
 
 const getAllEmployees = async (req, res) => {
   try {
-    const employees = await db.query("SELECT * FROM employees");
-
+    const employees = await db.query(
+      "SELECT b.*, a.title, c.name as department_name FROM employee_titles a JOIN employees b on a.employee_id = b.id JOIN departments c on a.department_id = c.id WHERE a.status = 'ACTIVE'"
+    );
     res.json(employees.rows);
   } catch (error) {
     console.error(error.message);
