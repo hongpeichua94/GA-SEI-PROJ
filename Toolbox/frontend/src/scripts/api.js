@@ -2,6 +2,7 @@ import useFetch from "../hooks/useFetch";
 
 const fetchData = useFetch();
 
+// RESPECTIVE TO THE LOGGED IN USER
 export const getAccountInfo = async (accountId, accessToken) => {
   try {
     const res = await fetchData(
@@ -66,6 +67,27 @@ export const getEmployeeTitles = async (accountId, accessToken) => {
   try {
     const res = await fetchData(
       `/api/employee/titles/${accountId}`,
+      "GET",
+      undefined,
+      accessToken
+    );
+
+    if (res.ok) {
+      console.log(res.data);
+      return res.data;
+    } else {
+      console.log(res.data);
+    }
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+// ALL EMPLOYEES
+export const getAllEmployeeInfo = async (accessToken) => {
+  try {
+    const res = await fetchData(
+      `/api/employees`,
       "GET",
       undefined,
       accessToken

@@ -1,0 +1,9 @@
+.banner h4 {
+  display: flex;
+  align-items: center;
+}
+
+/* Hide browser scroll */
+body {
+  overflow: hidden;
+}

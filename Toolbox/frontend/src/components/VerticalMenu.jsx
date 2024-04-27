@@ -26,7 +26,7 @@ function getItem(label, path, icon, children) {
 const items = [
   getItem("Home", "/dashboard", <HomeOutlined />),
   getItem("My Profile", "/profile", <ProfileOutlined />),
-  getItem("Employee Directory", "/employee", <TeamOutlined />),
+  getItem("Employee Directory", "/directory", <TeamOutlined />),
   getItem("Leave Management", "/leave", <CalendarOutlined />, [
     getItem("Request Time Off", "/leave/request"),
     getItem("Pending Approval", "/leave/pending"),
