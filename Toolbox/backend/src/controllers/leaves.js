@@ -104,9 +104,27 @@ const getAllLeaveQuotas = async (req, res) => {
   }
 };
 
+// To retrieve leave balance by leave type
+const getLeaveBalaceByAccountId = async (req, res) => {
+  try {
+    const balance = await db.query(
+      `SELECT b.account_id, a.employee_id, a.leave_type, a.quota, (a.quota-a.used) as balance, year FROM leave_quotas a JOIN employees b ON a.employee_id = b.id WHERE account_id = $1`,
+      [req.params.account_id]
+    );
+
+    res.json(balance.rows);
+  } catch (error) {
+    console.error(error.message);
+    res
+      .status(400)
+      .json({ status: "error", msg: "Error getting all leave quotas" });
+  }
+};
+
 module.exports = {
   createLeaveRequest,
   deleteLeaveRequest,
   getLeaveRequestByAccountId,
   getAllLeaveQuotas,
+  getLeaveBalaceByAccountId,
 };
