@@ -74,7 +74,7 @@ const addDepartmentManager = async (req, res) => {
 const getActiveDepartmentManagers = async (req, res) => {
   try {
     const managers = await db.query(
-      "SELECT * FROM department_managers WHERE status = 'ACTIVE'"
+      "SELECT a.*, concat(b.first_name,' ',b.last_name) as name, c.name as department FROM department_managers a JOIN employees b on a.employee_id = b.id JOIN departments c on a.department_id = c.id WHERE a.status = 'ACTIVE'"
     );
 
     res.json(managers.rows);
