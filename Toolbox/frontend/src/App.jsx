@@ -5,6 +5,9 @@ import UserContext from "./context/user";
 
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import Profile from "./pages/Profile";
+import Directory from "./pages/Directory";
+import LeaveManagement from "./pages/LeaveManagement";
 import NotFound from "./pages/NotFound";
 
 function App() {
@@ -29,11 +32,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate replace to="/login" />} />
         <Route
-          path="login"
+          path="/login"
           element={isLoggedIn ? <Navigate to="/dashboard" /> : <Login />}
         />
         <Route
-          path="dashboard"
+          path="/dashboard"
           element={
             isLoggedIn ? (
               <Dashboard accountId={accountId} />
@@ -42,6 +45,12 @@ function App() {
             )
           }
         />
+        <Route
+          path="/profile"
+          element={isLoggedIn ? <Profile /> : <Navigate to="/" />}
+        />
+        <Route path="/directory" element={<Directory />} />
+        <Route path="/leave" element={<LeaveManagement />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </UserContext.Provider>
