@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { v4: uuidv4 } = require("uuid");
 
-// Admin creates account and generate employee details
+// Admin creates account > generate employee details, title and leave quota
 const register = async (req, res) => {
   try {
     const authEmail = await db.query(
@@ -66,14 +66,36 @@ const register = async (req, res) => {
 
     const departmentId = departmentResult.rows[0].id;
 
-    // Create title details for the employtee in the title_details table
+    // Create title details for the employee in the title_details table
     await db.query(
       `INSERT INTO employee_titles (employee_id, title, start_date, department_id, status, created_at, updated_at) 
       VALUES ($1, $2, $3, $4, $5, NOW(), NOW())`,
       [employeeId, req.body.title, startDate, departmentId, "ACTIVE"]
     );
 
-    res.json({ status: "ok", msg: "User and employee created successfully" });
+    // Create leave quota details for the employee in the leave_quotas table
+    const leaveTypes = [
+      "ANNUAL",
+      "SICK",
+      "CHILDCARE",
+      "MATERNITY",
+      "PATERNITY",
+    ];
+    const quotas = [21, 14, 6, 60, 10];
+    const currentYear = new Date(new Date().getFullYear(), 0, 1);
+
+    for (let i = 0; i < leaveTypes.length; i++) {
+      await db.query(
+        `INSERT INTO leave_quotas (employee_id, leave_type, quota, year, created_at, updated_at)
+        VALUES ($1, $2, $3, $4, NOW(), NOW())`,
+        [employeeId, leaveTypes[i], quotas[i], currentYear]
+      );
+    }
+
+    res.json({
+      status: "ok",
+      msg: "Account, employee and leave quota created successfully",
+    });
   } catch (error) {
     console.error(error.message);
     res.status(400).json({ status: "error", msg: "Invalid registration" });
