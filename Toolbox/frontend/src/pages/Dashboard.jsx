@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 
 // COMPONENTS
@@ -12,54 +11,33 @@ import { Breadcrumb, Layout, theme } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Space } from "antd";
 
+// SCRIPTS
+import { getEmployeeInfo, getEmployeeCurrentTitle } from "../scripts/api";
+
 const { Header, Content, Footer, Sider } = Layout;
 
 const Dashboard = () => {
   const userCtx = useContext(UserContext);
-  const fetchData = useFetch();
   const [employeeDetails, setEmployeeDetails] = useState({});
   const [employeeCurrentTitle, setEmployeeCurrentTitle] = useState({});
-
-  const getEmployeeInfo = async () => {
-    const res = await fetchData(
-      `/api/employee/${userCtx.accountId}`,
-      "GET",
-      undefined,
-      userCtx.accessToken
-    );
-
-    if (res.ok) {
-      console.log(res.data[0]);
-      setEmployeeDetails(res.data[0]);
-    } else {
-      console.log(res.data);
-    }
-  };
-
-  const getEmployeeCurrentTitle = async () => {
-    const res = await fetchData(
-      `/api/employee/titles/${userCtx.accountId}`,
-      "GET",
-      undefined,
-      userCtx.accessToken
-    );
-
-    if (res.ok) {
-      console.log(res.data[0]);
-      setEmployeeCurrentTitle(res.data[0]);
-    } else {
-      console.log(res.data);
-    }
-  };
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
+  const fetchEmployeeData = async (accountId, accessToken) => {
+    const employeeInfo = await getEmployeeInfo(accountId, accessToken);
+    setEmployeeDetails(employeeInfo);
+
+    const employeeTitle = await getEmployeeCurrentTitle(accountId, accessToken);
+    setEmployeeCurrentTitle(employeeTitle);
+  };
+
   useEffect(() => {
-    getEmployeeInfo();
-    getEmployeeCurrentTitle();
-  }, [userCtx.accountId]);
+    if (userCtx.accountId) {
+      fetchEmployeeData(userCtx.accountId, userCtx.accessToken);
+    }
+  }, [userCtx.accountId, userCtx.accessToken]);
 
   return (
     <div className="dashboard">
@@ -108,7 +86,11 @@ const Dashboard = () => {
             <h5>Home</h5>
             <div className="dashboard-profile">
               <Space wrap size={16}>
-                <Avatar size={64} icon={<UserOutlined />} />
+                <Avatar
+                  size={90}
+                  icon={<UserOutlined />}
+                  src={employeeDetails.profile_picture_url}
+                />
               </Space>
               <div className="dashboard-profile-text">
                 <h4>
@@ -167,16 +149,6 @@ const Dashboard = () => {
               </div>
             </Content>
           </div>
-          {/* <Footer
-            style={{
-              position: "fixed",
-              bottom: 0,
-              right: 0,
-              textAlign: "center",
-            }}
-          >
-            Ant Design ©{new Date().getFullYear()} Created by Ant UED
-          </Footer> */}
         </Layout>
       </Layout>
     </div>

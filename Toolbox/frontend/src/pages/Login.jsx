@@ -5,7 +5,7 @@ import UserContext from "../context/user";
 import { ToolTwoTone } from "@ant-design/icons";
 import { Button, Form, Input, Typography } from "antd";
 
-const Login = (props) => {
+const Login = () => {
   const { Title } = Typography;
   const onFinish = (values) => {
     console.log("Success:", values);
