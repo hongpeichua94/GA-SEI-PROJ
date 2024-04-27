@@ -12,6 +12,18 @@ const getAllAccounts = async (req, res) => {
   }
 };
 
+const getAccountByAccountId = async (req, res) => {
+  try {
+    const account = await db.query("SELECT * FROM accounts WHERE uuid = $1", [
+      req.params.uuid,
+    ]);
+    res.json(account.rows);
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "Error getting account" });
+  }
+};
+
 // Use for account search function
 const getAccountByEmail = async (req, res) => {
   try {
@@ -102,4 +114,9 @@ const updateAccountDetails = async (req, res) => {
   }
 };
 
-module.exports = { getAllAccounts, getAccountByEmail, updateAccountDetails };
+module.exports = {
+  getAllAccounts,
+  getAccountByAccountId,
+  getAccountByEmail,
+  updateAccountDetails,
+};
