@@ -216,26 +216,31 @@ const getEmployeeTitlesByEmail = async (req, res) => {
   }
 };
 
-const getCurrentTitleByAccountId = async (req, res) => {
+const getEmployeeTitleByAccountId = async (req, res) => {
   try {
-    const query = `
+    let query = `
     WITH summary AS ( 
       SELECT 
         b.* 
       FROM employees a
       JOIN employee_titles b on a.id = b.employee_id 
       JOIN accounts c on a.account_id = c.uuid 
-      WHERE b.status = 'ACTIVE' 
-        AND a.account_id = $1
-      )
-      
+      WHERE a.account_id = $1`;
+
+    const values = [req.params.account_id];
+
+    if (req.query.status) {
+      query += ` AND b.status = $2`;
+      values.push(req.query.status);
+    }
+    query += `) 
       SELECT 
         summary.*,
         departments.name as department_name
       FROM summary
       LEFT JOIN departments on summary.department_id = departments.id`;
 
-    const employee = await db.query(query, [req.params.account_id]);
+    const employee = await db.query(query, values);
     res.json(employee.rows);
   } catch (error) {
     console.error(error.message);
@@ -251,5 +256,5 @@ module.exports = {
   addEmployeeTitles,
   updateEmployeeTitles,
   getEmployeeTitlesByEmail,
-  getCurrentTitleByAccountId,
+  getEmployeeTitleByAccountId,
 };
