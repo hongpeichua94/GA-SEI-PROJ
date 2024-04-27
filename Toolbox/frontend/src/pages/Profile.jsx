@@ -4,12 +4,21 @@ import UserContext from "../context/user";
 // COMPONENTS
 import NavBar from "../components/NavBar";
 import VerticalMenu from "../components/VerticalMenu";
+import ProfileBanner from "../components/ProfileBanner";
 import UpdateProfileModal from "../components/UpdateProfileModal";
 
 // ANT DESIGN
-import { Layout, theme } from "antd";
+import {
+  Layout,
+  theme,
+  Avatar,
+  Button,
+  Space,
+  Divider,
+  Table,
+  Badge,
+} from "antd";
 import { UserOutlined, EditOutlined } from "@ant-design/icons";
-import { Avatar, Button, Space, Divider, Table, Badge } from "antd";
 
 import styles from "./Profile.module.css";
 
@@ -108,6 +117,7 @@ const Profile = (props) => {
           profilePic={employeeDetails.profile_picture_url}
           setShowProfileUpdateModal={setShowProfileUpdateModal}
           fetchEmployeeData={fetchEmployeeData}
+          employeeCurrentTitle={employeeCurrentTitle}
         />
       )}
 
@@ -118,7 +128,14 @@ const Profile = (props) => {
             <VerticalMenu></VerticalMenu>
           </Sider>
           <Layout style={{ height: "100vh", overflow: "auto" }}>
-            <Header
+            <ProfileBanner
+              firstName={employeeDetails.first_name}
+              lastName={employeeDetails.last_name}
+              title={employeeCurrentTitle.title}
+              joinedDate={employeeDetails.joined_date}
+              profilePic={employeeDetails.profile_picture_url}
+            ></ProfileBanner>
+            {/* <Header
               style={{
                 padding: 10,
                 margin: "10px 16px",
@@ -149,7 +166,7 @@ const Profile = (props) => {
                   <h4>{employeeDetails.joined_date}</h4>
                 </div>
               </Space>
-            </Header>
+            </Header> */}
 
             <div className="details">
               <Content style={{ margin: "0 16px" }}>
