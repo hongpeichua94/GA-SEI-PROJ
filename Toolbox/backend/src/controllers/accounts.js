@@ -27,9 +27,28 @@ const getAccountByAccountId = async (req, res) => {
 // Use for account search function
 const getAccountByEmail = async (req, res) => {
   try {
-    const account = await db.query("SELECT * FROM accounts WHERE email = $1", [
-      req.query.email,
-    ]);
+    let query = `WITH account_summary AS (
+      SELECT
+        b.*,
+        concat(a.first_name, ' ', a.last_name) as employee_name,
+        c.title,
+        c.department_id
+      FROM employees a
+      JOIN accounts b ON a.account_id = b.uuid
+      JOIN employee_titles c on a.id = c.employee_id
+        WHERE b.email = $1
+          AND c.status ='ACTIVE'
+      )
+      
+      SELECT
+        account_summary.*,
+        departments.name as department_name
+      FROM account_summary
+      JOIN departments on account_summary.department_id = departments.id`;
+
+    const value = [req.body.email];
+
+    const account = await db.query(query, value);
     res.json(account.rows);
   } catch (error) {
     console.error(error.message);

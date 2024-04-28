@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.get("/accounts", getAllAccounts);
 router.get("/accounts/:uuid", getAccountByAccountId); //NavBar > getAccountInfo
-router.get("/accounts/search", getAccountByEmail);
-router.patch("/accounts/:uuid", updateAccountDetails);
+router.post("/accounts/search", getAccountByEmail); //Admin > onSearch
+router.patch("/accounts/:uuid", updateAccountDetails); //Admin
 
 module.exports = router;
