@@ -29,12 +29,12 @@ const items = [
   getItem("Employee Directory", "/directory", <TeamOutlined />),
   getItem("Leave Management", "sub1", <CalendarOutlined />, [
     getItem("Overview", "/leave"),
-    getItem("Request Time Off", "/leave/request"),
+    getItem("Request Time Off", "/leave/apply"),
     getItem("Pending Approval", "/leave/pending"),
   ]),
   getItem("Expense Tracker", "sub2", <DollarOutlined />, [
     getItem("Submit Expense", "/expense/submit"),
-    getItem("Expense History", "/expense/history"),
+    getItem("Expense History", "/expense/record"),
   ]),
   getItem("Knowledge Base", "/knowledge-base", <StarOutlined />),
   getItem("Admin Console", "/admin", <FileOutlined />),
@@ -51,7 +51,7 @@ const VerticalMenu = () => {
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider
-        collapsible
+        // collapsible
         collapsed={collapsed}
         onCollapse={(value) => setCollapsed(value)}
       >
