@@ -13,50 +13,29 @@ import { Layout, theme } from "antd";
 import styles from "./Profile.module.css";
 
 // SCRIPTS
-import {
-  getEmployeeInfo,
-  getEmployeeCurrentTitle,
-  getLeaveBalance,
-} from "../scripts/api";
+import { getLeaveBalance } from "../scripts/api";
 
 const { Content, Sider } = Layout;
 
 const LeaveManagement = (props) => {
   const userCtx = useContext(UserContext);
-  const [employeeDetails, setEmployeeDetails] = useState({});
-  const [employeeCurrentTitle, setEmployeeCurrentTitle] = useState({});
   const [overview, setOverview] = useState([]);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  useEffect(() => {
-    if (userCtx.accountId) {
-      fetchEmployeeData(userCtx.accountId, userCtx.accessToken);
-      fetchEmployeeCurrentTitle(userCtx.accountId, userCtx.accessToken);
-      fetchLeaveBalance(userCtx.accountId, userCtx.accessToken);
-    }
-  }, [userCtx.accountId, userCtx.accessToken]);
-
-  const fetchEmployeeData = async (accountId, accessToken) => {
-    const employeeInfo = await getEmployeeInfo(accountId, accessToken);
-    setEmployeeDetails(employeeInfo);
-  };
-
-  const fetchEmployeeCurrentTitle = async (accountId, accessToken) => {
-    const employeeCurrentTitle = await getEmployeeCurrentTitle(
-      accountId,
-      accessToken
-    );
-    setEmployeeCurrentTitle(employeeCurrentTitle);
-  };
-
   const fetchLeaveBalance = async (accountId, accessToken) => {
     const leaveBalance = await getLeaveBalance(accountId, accessToken);
     console.log(leaveBalance);
     setOverview(leaveBalance);
   };
+
+  useEffect(() => {
+    if (userCtx.accountId) {
+      fetchLeaveBalance(userCtx.accountId, userCtx.accessToken);
+    }
+  }, [userCtx.accountId, userCtx.accessToken]);
 
   return (
     <div className={styles.profile}>
@@ -67,11 +46,11 @@ const LeaveManagement = (props) => {
         </Sider>
         <Layout style={{ height: "100vh", overflow: "auto" }}>
           <ProfileBanner
-            firstName={employeeDetails.first_name}
-            lastName={employeeDetails.last_name}
-            title={employeeCurrentTitle.title}
-            joinedDate={employeeDetails.joined_date}
-            profilePic={employeeDetails.profile_picture_url}
+            firstName={props.employeeDetails.first_name}
+            lastName={props.employeeDetails.last_name}
+            title={props.employeeCurrentTitle.title}
+            joinedDate={props.employeeDetails.joined_date}
+            profilePic={props.employeeDetails.profile_picture_url}
           ></ProfileBanner>
           <div
             style={{
