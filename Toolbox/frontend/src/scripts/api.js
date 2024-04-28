@@ -103,14 +103,14 @@ export const getLeaveBalance = async (accountId, accessToken) => {
 };
 
 // ALL EMPLOYEES
-export const getAllEmployeeInfo = async (accessToken) => {
+export const getAllEmployeeInfo = async (accessToken, input) => {
   try {
-    const res = await fetchData(
-      `/api/employees`,
-      "GET",
-      undefined,
-      accessToken
-    );
+    // Construct the URL with the input query parameter if provided
+    const url = input
+      ? `/api/employees/search?input=${encodeURIComponent(input)}`
+      : `/api/employees/search`;
+
+    const res = await fetchData(url, "GET", undefined, accessToken);
 
     if (res.ok) {
       console.log(res.data);
