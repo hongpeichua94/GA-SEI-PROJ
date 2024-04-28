@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+
 import UserContext from "../context/user";
 
 // COMPONENTS
@@ -31,10 +32,6 @@ const Profile = (props) => {
   const userCtx = useContext(UserContext);
   const [employeeTitles, setEmployeeTitles] = useState([]);
   const [showProfileUpdateModal, setShowProfileUpdateModal] = useState(false);
-
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
 
   const columns = [
     {
@@ -80,6 +77,10 @@ const Profile = (props) => {
       fetchEmployeeTitles(userCtx.accountId, userCtx.accessToken);
     }
   }, [userCtx.accountId, userCtx.accessToken]);
+
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
 
   return (
     <>

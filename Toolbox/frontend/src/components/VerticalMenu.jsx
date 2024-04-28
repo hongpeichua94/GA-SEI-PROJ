@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import UserContext from "../context/user";
 
 import {
   HomeOutlined,
@@ -23,27 +24,29 @@ function getItem(label, key, icon, children) {
   };
 }
 
-const items = [
-  getItem("Home", "/dashboard", <HomeOutlined />),
-  getItem("My Profile", "/profile", <ProfileOutlined />),
-  getItem("Employee Directory", "/directory", <TeamOutlined />),
-  getItem("Leave Management", "sub1", <CalendarOutlined />, [
-    getItem("Overview", "/leave"),
-    getItem("Request Time Off", "/leave/apply"),
-    getItem("Pending Approval", "/leave/pending"),
-  ]),
-  getItem("Expense Tracker", "sub2", <DollarOutlined />, [
-    getItem("Submit Expense", "/expense/submit"),
-    getItem("Expense History", "/expense/record"),
-  ]),
-  getItem("Knowledge Base", "/knowledge-base", <StarOutlined />),
-  getItem("Admin Console", "/admin", <FileOutlined />),
-];
-
 const VerticalMenu = () => {
+  const userCtx = useContext(UserContext);
   const currentPage = useLocation().pathname;
 
   const [collapsed, setCollapsed] = useState(false);
+
+  const items = [
+    getItem("Home", "/dashboard", <HomeOutlined />),
+    getItem("My Profile", `/profile/${userCtx.accountId}`, <ProfileOutlined />),
+    getItem("Employee Directory", "/directory", <TeamOutlined />),
+    getItem("Leave Management", "sub1", <CalendarOutlined />, [
+      getItem("Overview", "/leave"),
+      getItem("Request Time Off", "/leave/apply"),
+      getItem("Pending Approval", "/leave/pending"),
+    ]),
+    getItem("Expense Tracker", "sub2", <DollarOutlined />, [
+      getItem("Submit Expense", "/expense/submit"),
+      getItem("Expense History", "/expense/record"),
+    ]),
+    getItem("Knowledge Base", "/knowledge-base", <StarOutlined />),
+    getItem("Admin Console", "/admin", <FileOutlined />),
+  ];
+
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();

@@ -74,8 +74,9 @@ function App() {
             )
           }
         />
+
         <Route
-          path="/profile"
+          path="/profile/:account_id"
           element={
             isLoggedIn ? (
               <Profile
@@ -89,6 +90,7 @@ function App() {
             )
           }
         />
+
         <Route path="/directory" element={<Directory />} />
         <Route
           path="/leave"

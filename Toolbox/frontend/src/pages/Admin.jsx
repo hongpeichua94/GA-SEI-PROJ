@@ -27,14 +27,6 @@ const Admin = () => {
   const [searchResult, setSearchResult] = useState({});
   const [accountDetails, setAccountDetails] = useState({});
 
-  const roleRef = useRef();
-  const adminRef = useRef();
-  const accountRef = useRef();
-  const directoryRef = useRef();
-  const leaveRef = useRef();
-  const expenseRef = useRef();
-  const KnowledgeBaseRef = useRef();
-
   const createModal = () => {
     setShowCreateAccountModal(true);
   };
@@ -241,7 +233,7 @@ const Admin = () => {
                 >
                   <div
                     className="access"
-                    style={{ background: "white", fontSize: 16 }}
+                    style={{ background: "white", fontSize: 14 }}
                   >
                     <div className="name row">
                       <div
