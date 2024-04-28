@@ -123,7 +123,15 @@ function App() {
             />
           }
         />
-        <Route path="/admin" element={<Admin />} />
+        <Route
+          path="/admin"
+          element={
+            <Admin
+              setEmployeeDetails={setEmployeeDetails}
+              employeeDetails={employeeDetails}
+            />
+          }
+        />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
