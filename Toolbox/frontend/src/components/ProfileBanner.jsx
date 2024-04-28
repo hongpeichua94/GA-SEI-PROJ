@@ -32,7 +32,9 @@ const ProfileBanner = (props) => {
             <h4>
               {props.firstName} {props.lastName}{" "}
             </h4>
-            <p>{props.title}</p>
+            <p>
+              {props.title} | {props.departmentName}
+            </p>
           </div>
         </div>
 

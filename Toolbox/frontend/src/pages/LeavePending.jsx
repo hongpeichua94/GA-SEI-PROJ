@@ -49,6 +49,7 @@ const LeavePending = (props) => {
             firstName={props.employeeDetails.first_name}
             lastName={props.employeeDetails.last_name}
             title={props.employeeCurrentTitle.title}
+            departmentName={props.employeeCurrentTitle.department_name}
             joinedDate={props.employeeDetails.joined_date}
             profilePic={props.employeeDetails.profile_picture_url}
           ></ProfileBanner>
