@@ -23,18 +23,12 @@ import { UserOutlined, EditOutlined } from "@ant-design/icons";
 import styles from "./Profile.module.css";
 
 // SCRIPTS
-import {
-  getEmployeeInfo,
-  getEmployeeCurrentTitle,
-  getEmployeeTitles,
-} from "../scripts/api";
+import { getEmployeeTitles } from "../scripts/api";
 
 const { Header, Content, Sider } = Layout;
 
 const Profile = (props) => {
   const userCtx = useContext(UserContext);
-  const [employeeDetails, setEmployeeDetails] = useState({});
-  const [employeeCurrentTitle, setEmployeeCurrentTitle] = useState({});
   const [employeeTitles, setEmployeeTitles] = useState([]);
   const [showProfileUpdateModal, setShowProfileUpdateModal] = useState(false);
 
@@ -56,27 +50,6 @@ const Profile = (props) => {
       dataIndex: "period",
     },
   ];
-
-  useEffect(() => {
-    if (userCtx.accountId) {
-      fetchEmployeeData(userCtx.accountId, userCtx.accessToken);
-      fetchEmployeeCurrentTitle(userCtx.accountId, userCtx.accessToken);
-      fetchEmployeeTitles(userCtx.accountId, userCtx.accessToken);
-    }
-  }, [userCtx.accountId, userCtx.accessToken]);
-
-  const fetchEmployeeData = async (accountId, accessToken) => {
-    const employeeInfo = await getEmployeeInfo(accountId, accessToken);
-    setEmployeeDetails(employeeInfo);
-  };
-
-  const fetchEmployeeCurrentTitle = async (accountId, accessToken) => {
-    const employeeCurrentTitle = await getEmployeeCurrentTitle(
-      accountId,
-      accessToken
-    );
-    setEmployeeCurrentTitle(employeeCurrentTitle);
-  };
 
   const fetchEmployeeTitles = async (accountId, accessToken) => {
     const employeeTitles = await getEmployeeTitles(accountId, accessToken);
@@ -102,22 +75,27 @@ const Profile = (props) => {
     setEmployeeTitles(formattedData);
   };
 
+  useEffect(() => {
+    if (userCtx.accountId) {
+      fetchEmployeeTitles(userCtx.accountId, userCtx.accessToken);
+    }
+  }, [userCtx.accountId, userCtx.accessToken]);
+
   return (
     <>
       {showProfileUpdateModal && (
         <UpdateProfileModal
-          id={employeeDetails.account_id}
-          status={employeeDetails.status}
-          address={employeeDetails.address}
-          country={employeeDetails.country}
-          postalCode={employeeDetails.postal_code}
-          phone={employeeDetails.phone}
-          email={employeeDetails.email}
-          resignedDate={employeeDetails.resigned_date}
-          profilePic={employeeDetails.profile_picture_url}
+          id={props.employeeDetails.account_id}
+          status={props.employeeDetails.status}
+          address={props.employeeDetails.address}
+          country={props.employeeDetails.country}
+          postalCode={props.employeeDetails.postal_code}
+          phone={props.employeeDetails.phone}
+          email={props.employeeDetails.email}
+          resignedDate={props.employeeDetails.resigned_date}
+          profilePic={props.employeeDetails.profile_picture_url}
           setShowProfileUpdateModal={setShowProfileUpdateModal}
-          fetchEmployeeData={fetchEmployeeData}
-          employeeCurrentTitle={employeeCurrentTitle}
+          fetchEmployeeData={props.fetchEmployeeData}
         />
       )}
 
@@ -129,45 +107,12 @@ const Profile = (props) => {
           </Sider>
           <Layout style={{ height: "100vh", overflow: "auto" }}>
             <ProfileBanner
-              firstName={employeeDetails.first_name}
-              lastName={employeeDetails.last_name}
-              title={employeeCurrentTitle.title}
-              joinedDate={employeeDetails.joined_date}
-              profilePic={employeeDetails.profile_picture_url}
+              firstName={props.employeeDetails.first_name}
+              lastName={props.employeeDetails.last_name}
+              title={props.employeeCurrentTitle.title}
+              joinedDate={props.employeeDetails.joined_date}
+              profilePic={props.employeeDetails.profile_picture_url}
             ></ProfileBanner>
-            {/* <Header
-              style={{
-                padding: 10,
-                margin: "10px 16px",
-                height: 120,
-                maxWidth: "90vw",
-                background: colorBgContainer,
-                borderRadius: borderRadiusLG,
-              }}
-            >
-              <Space wrap size={16} className={styles.banner}>
-                <div className={styles.userInfo}>
-                  <Avatar
-                    size={90}
-                    icon={<UserOutlined />}
-                    src={employeeDetails.profile_picture_url}
-                  />
-
-                  <div className={styles.about}>
-                    <h4>
-                      {employeeDetails.first_name} {employeeDetails.last_name}{" "}
-                    </h4>
-                    <p>{employeeCurrentTitle.title}</p>
-                  </div>
-                </div>
-
-                <div className={styles.joinedDate}>
-                  <h5>Joined since</h5>
-                  <h4>{employeeDetails.joined_date}</h4>
-                </div>
-              </Space>
-            </Header> */}
-
             <div className="details">
               <Content style={{ margin: "0 16px" }}>
                 <div
@@ -195,9 +140,9 @@ const Profile = (props) => {
                       </thead>
                       <tbody className={styles.tableCell}>
                         <tr>
-                          <td>{employeeDetails.first_name}</td>
-                          <td>{employeeDetails.last_name}</td>
-                          <td>{employeeDetails.id}</td>
+                          <td>{props.employeeDetails.first_name}</td>
+                          <td>{props.employeeDetails.last_name}</td>
+                          <td>{props.employeeDetails.id}</td>
                         </tr>
                       </tbody>
                       <thead className={styles.tableHeader}>
@@ -209,8 +154,8 @@ const Profile = (props) => {
                       </thead>
                       <tbody className={styles.tableCell}>
                         <tr>
-                          <td>{employeeDetails.date_of_birth}</td>
-                          <td>{employeeDetails.gender}</td>
+                          <td>{props.employeeDetails.date_of_birth}</td>
+                          <td>{props.employeeDetails.gender}</td>
                           <td></td>
                         </tr>
                       </tbody>
@@ -224,12 +169,12 @@ const Profile = (props) => {
                       <tbody className={styles.tableCell}>
                         <tr>
                           <td>
-                            {employeeDetails.status === "ACTIVE" ? (
+                            {props.employeeDetails.status === "ACTIVE" ? (
                               <Badge status="success" />
                             ) : (
                               <Badge status="error" />
                             )}{" "}
-                            {employeeDetails.status}
+                            {props.employeeDetails.status}
                           </td>
                           <td></td>
                           <td></td>
@@ -261,9 +206,9 @@ const Profile = (props) => {
                       </thead>
                       <tbody className={styles.tableCell}>
                         <tr>
-                          <td>{employeeDetails.address}</td>
-                          <td>{employeeDetails.country}</td>
-                          <td>{employeeDetails.postal_code}</td>
+                          <td>{props.employeeDetails.address}</td>
+                          <td>{props.employeeDetails.country}</td>
+                          <td>{props.employeeDetails.postal_code}</td>
                         </tr>
                       </tbody>
                       <thead className={styles.tableHeader}>
@@ -275,8 +220,8 @@ const Profile = (props) => {
                       </thead>
                       <tbody className={styles.tableCell}>
                         <tr>
-                          <td>{employeeDetails.phone}</td>
-                          <td>{employeeDetails.email}</td>
+                          <td>{props.employeeDetails.phone}</td>
+                          <td>{props.employeeDetails.email}</td>
                           <td></td>
                         </tr>
                       </tbody>

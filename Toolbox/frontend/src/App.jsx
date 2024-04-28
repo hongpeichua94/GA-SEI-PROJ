@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import UserContext from "./context/user";
@@ -8,12 +8,21 @@ import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
 import Directory from "./pages/Directory";
 import LeaveManagement from "./pages/LeaveManagement";
+import LeaveRequest from "./pages/LeaveRequest";
+import LeavePending from "./pages/LeavePending";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
+
+// SCRIPTS
+import { getEmployeeInfo, getEmployeeCurrentTitle } from "./scripts/api";
 
 function App() {
   const [accessToken, setAccessToken] = useState("");
   const [accountId, setAccountId] = useState("");
   const [role, setRole] = useState("");
+
+  const [employeeDetails, setEmployeeDetails] = useState({});
+  const [employeeCurrentTitle, setEmployeeCurrentTitle] = useState({});
 
   const userContextValue = {
     accessToken,
@@ -23,6 +32,26 @@ function App() {
     role,
     setRole,
   };
+
+  const fetchEmployeeData = async () => {
+    const employeeInfo = await getEmployeeInfo(accountId, accessToken);
+    setEmployeeDetails(employeeInfo);
+  };
+
+  const fetchEmployeeCurrentTitle = async () => {
+    const employeeCurrentTitle = await getEmployeeCurrentTitle(
+      accountId,
+      accessToken
+    );
+    setEmployeeCurrentTitle(employeeCurrentTitle);
+  };
+
+  useEffect(() => {
+    if (accountId) {
+      fetchEmployeeData(accountId, accessToken);
+      fetchEmployeeCurrentTitle(accountId, accessToken);
+    }
+  }, [accountId, accessToken]);
 
   //converting accessToken value to a boolean to see if user is logged in
   const isLoggedIn = !!accessToken;
@@ -47,10 +76,55 @@ function App() {
         />
         <Route
           path="/profile"
-          element={isLoggedIn ? <Profile /> : <Navigate to="/" />}
+          element={
+            isLoggedIn ? (
+              <Profile
+                fetchEmployeeData={fetchEmployeeData}
+                fetchEmployeeCurrentTitle={fetchEmployeeCurrentTitle}
+                employeeDetails={employeeDetails}
+                employeeCurrentTitle={employeeCurrentTitle}
+              />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
         />
         <Route path="/directory" element={<Directory />} />
-        <Route path="/leave" element={<LeaveManagement />} />
+        <Route
+          path="/leave"
+          element={
+            <LeaveManagement
+              fetchEmployeeData={fetchEmployeeData}
+              fetchEmployeeCurrentTitle={fetchEmployeeCurrentTitle}
+              employeeDetails={employeeDetails}
+              employeeCurrentTitle={employeeCurrentTitle}
+            />
+          }
+        />
+        <Route
+          path="/leave/apply"
+          element={
+            <LeaveRequest
+              fetchEmployeeData={fetchEmployeeData}
+              fetchEmployeeCurrentTitle={fetchEmployeeCurrentTitle}
+              employeeDetails={employeeDetails}
+              employeeCurrentTitle={employeeCurrentTitle}
+            />
+          }
+        />
+        <Route
+          path="/leave/pending"
+          element={
+            <LeavePending
+              fetchEmployeeData={fetchEmployeeData}
+              fetchEmployeeCurrentTitle={fetchEmployeeCurrentTitle}
+              employeeDetails={employeeDetails}
+              employeeCurrentTitle={employeeCurrentTitle}
+            />
+          }
+        />
+        <Route path="/admin" element={<Admin />} />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </UserContext.Provider>
