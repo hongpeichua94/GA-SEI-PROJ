@@ -30,13 +30,34 @@ const getEmployeeByAccountId = async (req, res) => {
 // Use for employee directory search function
 const getEmployeeByEmailOrName = async (req, res) => {
   try {
-    let query = `SELECT employees.* FROM employees JOIN accounts on employees.account_id = accounts.uuid WHERE 1 = 1`;
+    // let query = `SELECT employees.* FROM employees JOIN accounts on employees.account_id = accounts.uuid WHERE 1 = 1`;
+
+    let query = `
+      WITH employee_summary as (
+        SELECT 
+          b.email as work_email, 
+          a.*, 
+          concat(a.first_name, ' ', a.last_name) as employee_name,
+          c.title, 
+          c.department_id
+        FROM employees a
+        JOIN accounts b ON a.account_id = b.uuid 
+        JOIN employee_titles c ON a.id = c.employee_id
+        WHERE c.status = 'ACTIVE'
+      )
+
+      SELECT 
+        a.*,
+        b.name as department_name
+      FROM employee_summary a
+      JOIN departments b ON a.department_id = b.id
+      WHERE 1=1`;
 
     const values = [];
 
     if (req.query.input !== undefined) {
       query +=
-        " AND (accounts.email ilike '%' || $1 || '%' OR employees.first_name ilike '%' || $1 || '%' OR employees.last_name ilike '%' || $1 || '%')";
+        " AND (work_email ilike '%' || $1 || '%' OR first_name ilike '%' || $1 || '%' OR last_name ilike '%' || $1 || '%')";
       values.push(req.query.input);
     }
 

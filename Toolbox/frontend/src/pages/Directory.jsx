@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 
 // COMPONENTS
@@ -15,48 +17,61 @@ import qs from "qs";
 import styles from "./Directory.module.css";
 
 // SCRIPTS
-import {
-  getEmployeeInfo,
-  getEmployeeCurrentTitle,
-  getEmployeeTitles,
-} from "../scripts/api";
+import { getAllEmployeeInfo } from "../scripts/api";
 
 const { Header, Content, Sider } = Layout;
 const { Search } = Input;
 
-const onSearch = (value, _e, info) => console.log(info?.source, value);
+// const onSearch = (value, _e, info) => console.log(info?.source, value);
 
 const Directory = () => {
+  const fetchData = useFetch();
   const userCtx = useContext(UserContext);
-
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
 
   const columns = [
     {
       title: "Name",
-      dataIndex: "name",
+      dataIndex: "employee_name",
+      key: "name",
       sorter: true,
-      render: (name) => `${name.first} ${name.last}`,
+      render: (name, record) => (
+        <Link to={`/profile/${record.account_id}`}>{name}</Link>
+      ),
       width: "20%",
     },
     {
-      title: "Position",
-      dataIndex: "gender",
+      title: "Email",
+      dataIndex: "work_email",
+      width: "20%",
+    },
+    {
+      title: "Role",
+      dataIndex: "title",
       width: "20%",
     },
     {
       title: "Department",
-      dataIndex: "email",
+      dataIndex: "department_name",
       filters: [
         {
-          text: "a",
-          value: "a",
+          text: "Finance",
+          value: "Finance",
         },
         {
-          text: "b",
-          value: "b",
+          text: "Human Resource",
+          value: "Human Resource",
+        },
+        {
+          text: "Marketing",
+          value: "Marketing",
+        },
+        {
+          text: "Operations",
+          value: "Operations",
+        },
+        {
+          text: "Product",
+          value: "Product",
         },
       ],
       width: "20%",
@@ -64,23 +79,15 @@ const Directory = () => {
     {
       title: "Country",
       dataIndex: "country",
-      filters: [
-        {
-          text: "Singapore",
-          value: "singapore",
-        },
-        {
-          text: "Taiwan",
-          value: "taiwan",
-        },
-      ],
+      width: "20%",
     },
   ];
-  const getRandomuserParams = (params) => ({
-    results: params.pagination?.pageSize,
-    page: params.pagination?.current,
-    ...params,
-  });
+
+  // const getRandomuserParams = (params) => ({
+  //   results: params.pagination?.pageSize,
+  //   page: params.pagination?.current,
+  //   ...params,
+  // });
 
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
@@ -90,44 +97,77 @@ const Directory = () => {
       pageSize: 10,
     },
   });
+  const [searchInput, setSearchInput] = useState("");
+  const [filteredData, setFilteredData] = useState(data); // Assuming data is your initial employee data
 
-  const fetchData = () => {
-    setLoading(true);
-    fetch(
-      `https://randomuser.me/api?${qs.stringify(
-        getRandomuserParams(tableParams)
-      )}`
-    )
-      .then((res) => res.json())
-      .then(({ results }) => {
-        setData(results);
-        setLoading(false);
-        setTableParams({
-          ...tableParams,
-          pagination: {
-            ...tableParams.pagination,
-            total: 200,
-            // 200 is mock data, you should read it from server
-            // total: data.totalCount,
-          },
-        });
+  const fetchAllEmployeeData = async (accessToken, input) => {
+    setLoading(true); // Set loading the true while data is being fetched
+    try {
+      const employeeInfo = await getAllEmployeeInfo(accessToken, input);
+      setData(employeeInfo); // Set the fetched employee data
+      setLoading(false);
+      setTableParams({
+        ...tableParams,
+        pagination: {
+          ...tableParams.pagination,
+          total: employeeInfo.totalCount,
+        },
       });
+    } catch (error) {
+      console.error("Error fetching employee data:", error);
+    }
   };
-  useEffect(() => {
-    fetchData();
-  }, [tableParams.pagination?.current, tableParams.pagination?.pageSize]);
-  const handleTableChange = (pagination, filters, sorter) => {
-    setTableParams({
-      pagination,
-      filters,
-      ...sorter,
-    });
 
-    // `dataSource` is useless since `pageSize` changed
+  // const fetchData = () => {
+  //   setLoading(true);
+  //   fetch(
+  //     `https://randomuser.me/api?${qs.stringify(
+  //       getRandomuserParams(tableParams)
+  //     )}`
+  //   )
+  //     .then((res) => res.json())
+  //     .then(({ results }) => {
+  //       setData(results);
+  //       setLoading(false);
+  //       setTableParams({
+  //         ...tableParams,
+  //         pagination: {
+  //           ...tableParams.pagination,
+  //           total: 200,
+  //           // 200 is mock data, you should read it from server
+  //           // total: data.totalCount,
+  //         },
+  //       });
+  //     });
+  // };
+
+  const onSearch = (value) => {
+    setSearchInput(value); // Update the search input state
+    fetchAllEmployeeData(userCtx.accessToken, value); // Call fetchAllEmployeeData with accessToken and search input
+  };
+
+  useEffect(() => {
+    fetchAllEmployeeData(userCtx.accessToken);
+  }, [tableParams.pagination?.current, tableParams.pagination?.pageSize]);
+
+  const handleTableChange = (pagination, filters, sorter) => {
+    setTableParams(
+      {
+        pagination,
+        filters,
+        ...sorter,
+      },
+      [userCtx.accessToken]
+    );
+
     if (pagination.pageSize !== tableParams.pagination?.pageSize) {
       setData([]);
     }
   };
+
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
 
   return (
     <div className={styles.profile}>
@@ -155,7 +195,6 @@ const Directory = () => {
                 style={{
                   padding: 24,
                   margin: "10px 0px",
-                  //   minHeight: "75vh",
                   maxWidth: "90vw",
                   background: colorBgContainer,
                   borderRadius: borderRadiusLG,
@@ -164,7 +203,7 @@ const Directory = () => {
                 <div className="row" style={{ background: "white" }}>
                   <Search
                     className="col-md-6"
-                    placeholder="input search text (search by email / name)"
+                    placeholder="Search by name or email"
                     onSearch={onSearch}
                     enterButton
                   />
@@ -183,7 +222,7 @@ const Directory = () => {
                   borderRadius: borderRadiusLG,
                 }}
               >
-                <div className="job-history" style={{ background: "white" }}>
+                <div style={{ background: "white" }}>
                   <Table
                     columns={columns}
                     // rowKey={(record) => record.login.uuid}

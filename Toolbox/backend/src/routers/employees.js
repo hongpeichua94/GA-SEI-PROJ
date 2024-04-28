@@ -13,7 +13,7 @@ const {
 const router = express.Router();
 
 router.get("/employees", getAllEmployees);
-router.get("/employees/search", getEmployeeByEmailOrName);
+router.get("/employees/search", getEmployeeByEmailOrName); //Directory > getAllEmployeeInfo
 
 router.get("/employee/:account_id", getEmployeeByAccountId); //Dashboard > getEmployeeInfo
 router.patch("/employee/:account_id", updateEmployeeDetails); //Profile > updateEmployeeDetails
