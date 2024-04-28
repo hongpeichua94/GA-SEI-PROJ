@@ -32,11 +32,22 @@ const Directory = () => {
     {
       title: "Name",
       dataIndex: "employee_name",
-      key: "name",
       sorter: true,
-      render: (name, record) => (
-        <Link to={`/profile/${record.account_id}`}>{name}</Link>
-      ),
+
+      sorter: (a, b) => {
+        const nameA = a.employee_name.toLowerCase();
+        const nameB = b.employee_name.toLowerCase();
+
+        // Compare the names alphabetically
+        if (nameA < nameB) {
+          return -1; // a should come before b in the sorted order
+        } else if (nameA > nameB) {
+          return 1; // b should come before a in the sorted order
+        } else {
+          return 0; // names are equal, no change in order needed
+        }
+      },
+
       width: "20%",
     },
     {
@@ -74,6 +85,7 @@ const Directory = () => {
           value: "Product",
         },
       ],
+      onFilter: (value, record) => record.department_name.indexOf(value) === 0,
       width: "20%",
     },
     {
