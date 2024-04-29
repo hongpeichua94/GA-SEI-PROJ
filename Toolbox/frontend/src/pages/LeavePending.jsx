@@ -8,7 +8,7 @@ import ProfileBanner from "../components/ProfileBanner";
 import LeaveBalanceCard from "../components/LeaveBalanceCard";
 
 // ANT DESIGN
-import { Divider, List, Layout, theme } from "antd";
+import { Divider, List, Layout, Table, Space, theme } from "antd";
 
 import styles from "./Profile.module.css";
 
@@ -21,11 +21,87 @@ const LeavePending = (props) => {
   const userCtx = useContext(UserContext);
 
   const [pendingApproval, setPendingApproval] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [tableParams, setTableParams] = useState({
+    pagination: {
+      current: 1,
+      pageSize: 10,
+    },
+  });
+
+  const columns = [
+    {
+      title: "Status",
+      dataIndex: "status",
+      width: "10%",
+    },
+    {
+      title: "Type",
+      dataIndex: "leave_type",
+      width: "10%",
+    },
+    {
+      title: "Start Date",
+      dataIndex: "start_date_string",
+      width: "20%",
+    },
+    {
+      title: "End Date",
+      dataIndex: "end_date_string",
+      width: "20%",
+    },
+    {
+      title: "Duration (days)",
+      dataIndex: "duration",
+      width: "10%",
+    },
+    {
+      title: "Requested by",
+      dataIndex: "requestor_name",
+      width: "30%",
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (record) => (
+        <Space size="middle">
+          <a
+            style={{ color: "#28B48A" }}
+            onClick={() => {
+              alert("approve");
+            }}
+          >
+            Approve
+          </a>
+          <a
+            style={{ color: "#FF6C64" }}
+            onClick={() => {
+              alert("reject");
+            }}
+          >
+            Reject
+          </a>
+        </Space>
+      ),
+    },
+  ];
 
   const fetchPendingLeaveRequest = async (accountId, accessToken) => {
-    const data = await getPendingLeaveRequest(accountId, accessToken);
-    console.log(data);
-    setPendingApproval(data);
+    setLoading(true); // Set loading the true while data is being fetched
+    try {
+      const data = await getPendingLeaveRequest(accountId, accessToken);
+      setPendingApproval(data);
+      setLoading(false);
+      setTableParams({
+        ...tableParams,
+        pagination: {
+          ...tableParams.pagination,
+          total: data.totalCount,
+        },
+      });
+    } catch (error) {
+      console.error("Error fetching leave request:", error);
+    }
   };
   useEffect(() => {
     if (userCtx.accountId) {
@@ -65,24 +141,15 @@ const LeavePending = (props) => {
                 borderRadius: borderRadiusLG,
               }}
             >
-              <div className="row">
-                <h3>Pending Approval</h3>
-                <Divider orientation="center">Upcoming Time-Off</Divider>
-                <List
-                  itemLayout="horizontal"
-                  dataSource={pendingApproval}
-                  renderItem={(item, index) => (
-                    <List.Item actions={[<a key="delete">delete</a>]}>
-                      <List.Item.Meta
-                        title={`[${item.status}] ${item.leave_type} LEAVE (${item.duration} DAYS)`}
-                        description={`From ${
-                          item.start_date.split("T")[0]
-                        } to ${item.end_date.split("T")[0]}`}
-                      />
-                    </List.Item>
-                  )}
-                />
-              </div>
+              <Divider orientation="center">Pending Approval</Divider>
+              <Table
+                columns={columns}
+                // rowKey={(record) => record.login.uuid}
+                dataSource={pendingApproval}
+                // pagination={tableParams.pagination}
+                loading={loading}
+                // onChange={handleTableChange}
+              />
             </div>
           </Content>
 

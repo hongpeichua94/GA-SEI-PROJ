@@ -107,15 +107,20 @@ const getLeaveRequestByDeptManager = async (req, res) => {
         AND a.account_id = $1
     )
     
-    SELECT 
-      a.*
-    FROM leave_requests a
-    JOIN summary b ON a.dept_manager_id = b.dept_manager_id
-    WHERE a.status = 'PENDING'`;
+      SELECT 
+        a.*,
+        to_char(a.start_date, 'YYYY-MM-DD') as start_date_string,
+        to_char(a.end_date, 'YYYY-MM-DD') as end_date_string,
+        c.first_name || ' ' || c.last_name as requestor_name
+      FROM leave_requests a
+      JOIN summary b ON a.dept_manager_id = b.dept_manager_id
+      JOIN employees c ON a.requestor_id = c.id
+      WHERE a.status = 'PENDING'`;
 
     const value = [req.body.account_id];
 
     const pending = await db.query(query, value);
+    console.log(pending.rows);
     res.json(pending.rows);
   } catch (error) {
     console.error(error.message);
