@@ -5,7 +5,7 @@ const createLeaveRequest = async (req, res) => {
   try {
     const requestorResult = await db.query(
       "SELECT id as employee_id, department_id FROM employees JOIN employee_titles ON employees.id = employee_titles.employee_id WHERE account_id = $1",
-      [req.params.account_id]
+      [req.body.account_id]
     );
 
     const requestorId = requestorResult.rows[0].employee_id;
@@ -19,7 +19,8 @@ const createLeaveRequest = async (req, res) => {
     const managerId = managerResult.rows[0].dept_manager_id;
     const duration = Math.round(
       (new Date(req.body.end_date) - new Date(req.body.start_date)) /
-        (1000 * 3600 * 24),
+        (1000 * 3600 * 24) +
+        1,
       2
     );
 
