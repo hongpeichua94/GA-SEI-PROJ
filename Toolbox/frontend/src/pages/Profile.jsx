@@ -56,9 +56,9 @@ const Profile = (props) => {
       let period;
 
       if (employeeTitle.status !== "ACTIVE") {
-        period = `${employeeTitle.start_date} to ${employeeTitle.end_date}`;
+        period = `${employeeTitle.start_date_string} to ${employeeTitle.end_date_string}`;
       } else {
-        period = `${employeeTitle.start_date} to Present`;
+        period = `${employeeTitle.start_date_string} to Present`;
       }
 
       return {
@@ -112,7 +112,7 @@ const Profile = (props) => {
               lastName={props.employeeDetails.last_name}
               title={props.employeeCurrentTitle.title}
               departmentName={props.employeeCurrentTitle.department_name}
-              joinedDate={props.employeeDetails.joined_date}
+              joinedDate={props.employeeDetails.joined_date_string}
               profilePic={props.employeeDetails.profile_picture_url}
             ></ProfileBanner>
             <div className="details">
@@ -156,7 +156,7 @@ const Profile = (props) => {
                       </thead>
                       <tbody className={styles.tableCell}>
                         <tr>
-                          <td>{props.employeeDetails.date_of_birth}</td>
+                          <td>{props.employeeDetails.date_of_birth_string}</td>
                           <td>{props.employeeDetails.gender}</td>
                           <td></td>
                         </tr>

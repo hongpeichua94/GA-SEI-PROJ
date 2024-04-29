@@ -31,6 +31,11 @@ const LeavePending = (props) => {
 
   const columns = [
     {
+      title: "Created At",
+      dataIndex: "created_at_string",
+      width: "20%",
+    },
+    {
       title: "Status",
       dataIndex: "status",
       width: "10%",
@@ -56,7 +61,7 @@ const LeavePending = (props) => {
       width: "10%",
     },
     {
-      title: "Requested by",
+      title: "Requested By",
       dataIndex: "requestor_name",
       width: "30%",
     },
@@ -126,7 +131,7 @@ const LeavePending = (props) => {
             lastName={props.employeeDetails.last_name}
             title={props.employeeCurrentTitle.title}
             departmentName={props.employeeCurrentTitle.department_name}
-            joinedDate={props.employeeDetails.joined_date}
+            joinedDate={props.employeeDetails.joined_date_string}
             profilePic={props.employeeDetails.profile_picture_url}
           ></ProfileBanner>
 
@@ -146,7 +151,7 @@ const LeavePending = (props) => {
                 columns={columns}
                 // rowKey={(record) => record.login.uuid}
                 dataSource={pendingApproval}
-                // pagination={tableParams.pagination}
+                pagination={tableParams.pagination}
                 loading={loading}
                 // onChange={handleTableChange}
               />

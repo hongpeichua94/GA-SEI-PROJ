@@ -105,7 +105,7 @@ const LeaveRequest = (props) => {
             lastName={props.employeeDetails.last_name}
             title={props.employeeCurrentTitle.title}
             departmentName={props.employeeCurrentTitle.department_name}
-            joinedDate={props.employeeDetails.joined_date}
+            joinedDate={props.employeeDetails.joined_date_string}
             profilePic={props.employeeDetails.profile_picture_url}
           ></ProfileBanner>
           <div

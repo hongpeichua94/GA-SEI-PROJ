@@ -2,9 +2,16 @@ const db = require("../db/db");
 
 const getAllEmployees = async (req, res) => {
   try {
-    const employees = await db.query(
-      "SELECT b.*, a.title, c.name as department_name FROM employee_titles a JOIN employees b on a.employee_id = b.id JOIN departments c on a.department_id = c.id WHERE a.status = 'ACTIVE'"
-    );
+    const employees = await db.query(`
+    SELECT 
+      b.*, a.title, 
+      c.name as department_name, 
+      to_char(b.date_of_birth,'YYYY-MM-DD') as date_of_birth_string,  
+      to_char(b.joined_date,'YYYY-MM-DD') as joined_date_string 
+    FROM employee_titles a 
+    JOIN employees b on a.employee_id = b.id 
+    JOIN departments c on a.department_id = c.id 
+    WHERE a.status = 'ACTIVE'`);
     res.json(employees.rows);
   } catch (error) {
     console.error(error.message);
@@ -17,7 +24,7 @@ const getAllEmployees = async (req, res) => {
 const getEmployeeByAccountId = async (req, res) => {
   try {
     const employee = await db.query(
-      "SELECT * FROM employees WHERE account_id = $1",
+      "SELECT *, to_char(date_of_birth,'YYYY-MM-DD') as date_of_birth_string, to_char(joined_date,'YYYY-MM-DD') as joined_date_string FROM employees WHERE account_id = $1",
       [req.params.account_id]
     );
     res.json(employee.rows);
@@ -243,7 +250,9 @@ const getEmployeeTitleByAccountId = async (req, res) => {
     let query = `
     WITH summary AS ( 
       SELECT 
-        b.* 
+        b.*,
+        to_char(b.start_date,'YYYY-MM-DD') as start_date_string,
+        to_char(b.end_date,'YYYY-MM-DD') as end_date_string
       FROM employees a
       JOIN employee_titles b on a.id = b.employee_id 
       JOIN accounts c on a.account_id = c.uuid 

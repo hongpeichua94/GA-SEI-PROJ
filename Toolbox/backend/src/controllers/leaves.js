@@ -108,6 +108,7 @@ const getLeaveRequestByDeptManager = async (req, res) => {
     )
     
       SELECT 
+        to_char(a.created_at, 'YYYY-MM-DD') as created_at_string,
         a.*,
         to_char(a.start_date, 'YYYY-MM-DD') as start_date_string,
         to_char(a.end_date, 'YYYY-MM-DD') as end_date_string,
