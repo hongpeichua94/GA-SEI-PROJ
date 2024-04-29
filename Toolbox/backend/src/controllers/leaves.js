@@ -1,6 +1,39 @@
 const db = require("../db/db");
 
 // LEAVE REQUESTS
+
+// To retrieve all request by status and leave type
+const getLeaveRequestByAccountId = async (req, res) => {
+  try {
+    let query = `SELECT a.* FROM leave_requests a JOIN employees b ON a.requestor_id = b.id WHERE account_id = $1`;
+
+    const values = [req.params.account_id];
+
+    let parameterIndex = 2; // Start with the index for the first optional parameter
+
+    if (req.query.leave_type) {
+      query += ` AND a.leave_type = $${parameterIndex}`;
+      values.push(req.query.leave_type);
+      parameterIndex++; // Increment the index for the next optional parameter
+    }
+
+    if (req.query.status) {
+      query += ` AND a.status = $${parameterIndex}`;
+      values.push(req.query.status);
+      parameterIndex++; // Increment the index for the next optional parameter
+    }
+
+    const requests = await db.query(query, values);
+    res.json(requests.rows);
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({
+      status: "error",
+      msg: "Error getting employee's leave requests",
+    });
+  }
+};
+
 const createLeaveRequest = async (req, res) => {
   try {
     const requestorResult = await db.query(
@@ -59,35 +92,36 @@ const deleteLeaveRequest = async (req, res) => {
   }
 };
 
-// To retrieve all request by status and leave type
-const getLeaveRequestByAccountId = async (req, res) => {
+const getLeaveRequestByDeptManager = async (req, res) => {
   try {
-    let query = `SELECT a.* FROM leave_requests a JOIN employees b ON a.requestor_id = b.id WHERE account_id = $1`;
+    let query = `WITH summary as (
+      SELECT 
+        a.id,
+        a.account_id,
+        b.department_id,
+        b.uuid as dept_manager_id,
+        b.status
+      FROM employees a
+      JOIN department_managers b ON a.id = b.employee_id
+      WHERE b.status = 'ACTIVE'
+        AND a.account_id = $1
+    )
+    
+    SELECT 
+      a.*
+    FROM leave_requests a
+    JOIN summary b ON a.dept_manager_id = b.dept_manager_id
+    WHERE a.status = 'PENDING'`;
 
-    const values = [req.params.account_id];
+    const value = [req.body.account_id];
 
-    let parameterIndex = 2; // Start with the index for the first optional parameter
-
-    if (req.query.leave_type) {
-      query += ` AND a.leave_type = $${parameterIndex}`;
-      values.push(req.query.leave_type);
-      parameterIndex++; // Increment the index for the next optional parameter
-    }
-
-    if (req.query.status) {
-      query += ` AND a.status = $${parameterIndex}`;
-      values.push(req.query.status);
-      parameterIndex++; // Increment the index for the next optional parameter
-    }
-
-    const requests = await db.query(query, values);
-    res.json(requests.rows);
+    const pending = await db.query(query, value);
+    res.json(pending.rows);
   } catch (error) {
     console.error(error.message);
-    res.status(400).json({
-      status: "error",
-      msg: "Error getting employee's leave requests",
-    });
+    res
+      .status(400)
+      .json({ status: "error", msg: "Error getting leave pending approval" });
   }
 };
 
@@ -126,6 +160,7 @@ module.exports = {
   createLeaveRequest,
   deleteLeaveRequest,
   getLeaveRequestByAccountId,
+  getLeaveRequestByDeptManager,
   getAllLeaveQuotas,
   getLeaveBalaceByAccountId,
 };

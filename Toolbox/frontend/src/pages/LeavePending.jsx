@@ -8,34 +8,34 @@ import ProfileBanner from "../components/ProfileBanner";
 import LeaveBalanceCard from "../components/LeaveBalanceCard";
 
 // ANT DESIGN
-import { Layout, theme } from "antd";
+import { Divider, List, Layout, theme } from "antd";
 
 import styles from "./Profile.module.css";
 
 // SCRIPTS
-import { getLeaveBalance } from "../scripts/api";
+import { getPendingLeaveRequest } from "../scripts/api";
 
 const { Content, Sider } = Layout;
 
 const LeavePending = (props) => {
   const userCtx = useContext(UserContext);
 
-  const [overview, setOverview] = useState([]);
+  const [pendingApproval, setPendingApproval] = useState([]);
+
+  const fetchPendingLeaveRequest = async (accountId, accessToken) => {
+    const data = await getPendingLeaveRequest(accountId, accessToken);
+    console.log(data);
+    setPendingApproval(data);
+  };
+  useEffect(() => {
+    if (userCtx.accountId) {
+      fetchPendingLeaveRequest(userCtx.accountId, userCtx.accessToken);
+    }
+  }, [userCtx.accountId, userCtx.accessToken]);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-
-  const fetchLeaveBalance = async (accountId, accessToken) => {
-    const leaveBalance = await getLeaveBalance(accountId, accessToken);
-    console.log(leaveBalance);
-    setOverview(leaveBalance);
-  };
-  useEffect(() => {
-    if (userCtx.accountId) {
-      fetchLeaveBalance(userCtx.accountId, userCtx.accessToken);
-    }
-  }, [userCtx.accountId, userCtx.accessToken]);
 
   return (
     <div className={styles.profile}>
@@ -53,25 +53,7 @@ const LeavePending = (props) => {
             joinedDate={props.employeeDetails.joined_date}
             profilePic={props.employeeDetails.profile_picture_url}
           ></ProfileBanner>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-          >
-            {overview.map((item) => {
-              return (
-                <LeaveBalanceCard
-                  key={item.id}
-                  id={item.id}
-                  leaveType={item.leave_type}
-                  balance={item.balance}
-                  fetchLeaveBalance={fetchLeaveBalance}
-                ></LeaveBalanceCard>
-              );
-            })}
-          </div>
+
           <Content style={{ margin: "10px 16px" }}>
             <div
               style={{
@@ -84,7 +66,22 @@ const LeavePending = (props) => {
               }}
             >
               <div className="row">
-                <h3>Upcoming Time Off</h3>
+                <h3>Pending Approval</h3>
+                <Divider orientation="center">Upcoming Time-Off</Divider>
+                <List
+                  itemLayout="horizontal"
+                  dataSource={pendingApproval}
+                  renderItem={(item, index) => (
+                    <List.Item actions={[<a key="delete">delete</a>]}>
+                      <List.Item.Meta
+                        title={`[${item.status}] ${item.leave_type} LEAVE (${item.duration} DAYS)`}
+                        description={`From ${
+                          item.start_date.split("T")[0]
+                        } to ${item.end_date.split("T")[0]}`}
+                      />
+                    </List.Item>
+                  )}
+                />
               </div>
             </div>
           </Content>
