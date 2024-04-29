@@ -2,7 +2,7 @@ const db = require("../db/db");
 
 // LEAVE REQUESTS
 
-// To retrieve all request by status and leave type
+// To retrieve all requests by status and leave type
 const getLeaveRequestByAccountId = async (req, res) => {
   try {
     let query = `SELECT a.* FROM leave_requests a JOIN employees b ON a.requestor_id = b.id WHERE account_id = $1`;
@@ -34,6 +34,7 @@ const getLeaveRequestByAccountId = async (req, res) => {
   }
 };
 
+// To create leave requests with PENDING status
 const createLeaveRequest = async (req, res) => {
   try {
     const requestorResult = await db.query(
@@ -92,6 +93,7 @@ const deleteLeaveRequest = async (req, res) => {
   }
 };
 
+// To retrieve all leave request pending for manager approval
 const getLeaveRequestByDeptManager = async (req, res) => {
   try {
     let query = `WITH summary as (
@@ -131,6 +133,26 @@ const getLeaveRequestByDeptManager = async (req, res) => {
   }
 };
 
+// To update leave request status
+const updateLeaveRequestStatus = async (req, res) => {
+  try {
+    const updateQuery = `
+      UPDATE leave_requests
+      SET
+          status = $1,
+          updated_at = NOW()
+      WHERE uuid = $2`;
+
+    await db.query(updateQuery, [req.body.status, req.body.uuid]);
+    res
+      .status(200)
+      .json({ status: "success", msg: "Leave request updated successfully" });
+  } catch (error) {
+    console.error("Error updating leave request:", error);
+    res.status(500).json({ status: "error", msg: "Internal server error" });
+  }
+};
+
 // LEAVE QUOTAS
 const getAllLeaveQuotas = async (req, res) => {
   try {
@@ -167,6 +189,7 @@ module.exports = {
   deleteLeaveRequest,
   getLeaveRequestByAccountId,
   getLeaveRequestByDeptManager,
+  updateLeaveRequestStatus,
   getAllLeaveQuotas,
   getLeaveBalaceByAccountId,
 };

@@ -1,14 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
+import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 
 // COMPONENTS
 import NavBar from "../components/NavBar";
 import VerticalMenu from "../components/VerticalMenu";
 import ProfileBanner from "../components/ProfileBanner";
-import LeaveBalanceCard from "../components/LeaveBalanceCard";
 
 // ANT DESIGN
-import { Divider, List, Layout, Table, Space, theme } from "antd";
+import {
+  Button,
+  Divider,
+  List,
+  Layout,
+  Table,
+  Space,
+  theme,
+  message,
+} from "antd";
 
 import styles from "./Profile.module.css";
 
@@ -18,6 +27,7 @@ import { getPendingLeaveRequest } from "../scripts/api";
 const { Content, Sider } = Layout;
 
 const LeavePending = (props) => {
+  const fetchData = useFetch();
   const userCtx = useContext(UserContext);
 
   const [pendingApproval, setPendingApproval] = useState([]);
@@ -72,19 +82,15 @@ const LeavePending = (props) => {
         <Space size="middle">
           <a
             style={{ color: "#28B48A" }}
-            onClick={() => {
-              alert("approve");
-            }}
+            onClick={() => handleApprove(record.uuid)}
           >
-            Approve
+            Approve {record.uuid}
           </a>
           <a
             style={{ color: "#FF6C64" }}
-            onClick={() => {
-              alert("reject");
-            }}
+            onClick={() => handleReject(record.uuid)}
           >
-            Reject
+            Reject {record.uuid}
           </a>
         </Space>
       ),
@@ -108,6 +114,51 @@ const LeavePending = (props) => {
       console.error("Error fetching leave request:", error);
     }
   };
+
+  const handleApprove = async (uuid) => {
+    const res = await fetchData(
+      "/api/leave/approval",
+      "PATCH",
+      {
+        uuid: uuid,
+        status: "APPROVED",
+      },
+      userCtx.accessToken
+    );
+    if (res.ok) {
+      message.success("Action recorded successfully");
+      console.log(res.data);
+      await fetchPendingLeaveRequest(userCtx.accountId, userCtx.accessToken);
+    } else {
+      alert(JSON.stringify(res.data));
+      console.log(res.data);
+    }
+  };
+
+  const handleReject = async (uuid) => {
+    const res = await fetchData(
+      "/api/leave/approval",
+      "PATCH",
+      {
+        uuid: uuid,
+        status: "REJECTED",
+      },
+      userCtx.accessToken
+    );
+    if (res.ok) {
+      message.success("Action recorded successfully");
+      console.log(res.data);
+      await fetchPendingLeaveRequest(userCtx.accountId, userCtx.accessToken);
+    } else {
+      alert(JSON.stringify(res.data));
+      console.log(res.data);
+    }
+  };
+
+  //   PATCH update leave_request status [DONE]
+  //   PATCH update leave_quota
+  //   ANNUAL LEAVE --- TOTAL APPROVED (SUM DURATION) -- PUSH THIS NUMBER TO USED
+
   useEffect(() => {
     if (userCtx.accountId) {
       fetchPendingLeaveRequest(userCtx.accountId, userCtx.accessToken);
@@ -149,7 +200,7 @@ const LeavePending = (props) => {
               <Divider orientation="center">Pending Approval</Divider>
               <Table
                 columns={columns}
-                // rowKey={(record) => record.login.uuid}
+                // rowKey={(record) => record.uuid}
                 dataSource={pendingApproval}
                 pagination={tableParams.pagination}
                 loading={loading}

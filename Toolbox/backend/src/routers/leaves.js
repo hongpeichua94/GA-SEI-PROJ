@@ -4,6 +4,7 @@ const {
   deleteLeaveRequest,
   getLeaveRequestByAccountId,
   getLeaveRequestByDeptManager,
+  updateLeaveRequestStatus,
   getAllLeaveQuotas,
   getLeaveBalaceByAccountId,
 } = require("../controllers/leaves");
@@ -15,6 +16,7 @@ router.put("/leave/request", createLeaveRequest); //LeaveRequest > createLeaveRe
 router.delete("/leave/request/:uuid", deleteLeaveRequest);
 
 router.post("/leave/approval", getLeaveRequestByDeptManager);
+router.patch("/leave/approval", updateLeaveRequestStatus);
 
 router.get("/leaves", getAllLeaveQuotas);
 router.get("/leaves/balance/:account_id", getLeaveBalaceByAccountId); //LeaveManagement > getLeaveBalance
