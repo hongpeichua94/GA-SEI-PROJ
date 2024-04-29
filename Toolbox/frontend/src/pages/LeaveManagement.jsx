@@ -6,9 +6,10 @@ import NavBar from "../components/NavBar";
 import VerticalMenu from "../components/VerticalMenu";
 import ProfileBanner from "../components/ProfileBanner";
 import LeaveBalanceCard from "../components/LeaveBalanceCard";
+import UpcomingLeave from "../components/UpcomingLeave";
 
 // ANT DESIGN
-import { Layout, theme } from "antd";
+import { Layout, Divider, List, Typography, theme } from "antd";
 
 import styles from "./Profile.module.css";
 
@@ -16,6 +17,14 @@ import styles from "./Profile.module.css";
 import { getLeaveBalance } from "../scripts/api";
 
 const { Content, Sider } = Layout;
+
+const data = [
+  "Racing car sprays burning fuel into crowd.",
+  "Japanese princess to wed commoner.",
+  "Australian walks 100km after outback crash.",
+  "Man charged over missing wedding girl.",
+  "Los Angeles battles huge wildfires.",
+];
 
 const LeaveManagement = (props) => {
   const userCtx = useContext(UserContext);
@@ -75,25 +84,16 @@ const LeaveManagement = (props) => {
           <Content style={{ margin: "10px 16px" }}>
             <div
               style={{
-                padding: 24,
-                minHeight: "75vh",
+                padding: "10px 24px",
+                minHeight: "40vh",
                 maxWidth: "90vw",
                 background: colorBgContainer,
-
                 borderRadius: borderRadiusLG,
               }}
             >
-              <div className="row">
-                <h3>Upcoming Time Off</h3>
-              </div>
+              <UpcomingLeave></UpcomingLeave>
             </div>
           </Content>
-
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
         </Layout>
       </Layout>
     </div>

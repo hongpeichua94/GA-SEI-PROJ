@@ -102,6 +102,25 @@ export const getLeaveBalance = async (accountId, accessToken) => {
   }
 };
 
+export const getLeaveRequest = async (accountId, accessToken) => {
+  try {
+    const res = await fetchData(
+      `/api/leave/request/${accountId}`,
+      "GET",
+      undefined,
+      accessToken
+    );
+    if (res.ok) {
+      console.log(res.data);
+      return res.data;
+    } else {
+      console.log(res.data);
+    }
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
 // ALL EMPLOYEES
 export const getAllEmployeeInfo = async (accessToken, input) => {
   try {
