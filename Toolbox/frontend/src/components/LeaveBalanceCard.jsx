@@ -3,6 +3,14 @@ import React from "react";
 import { Card } from "antd";
 
 const LeaveBalanceCard = (props) => {
+  const orderMap = {
+    ANNUAL: 1,
+    SICK: 2,
+    CHILDCARE: 3,
+    MATERNITY: 4,
+    PATERNITY: 5,
+  };
+
   return (
     <Card
       style={{
@@ -14,6 +22,7 @@ const LeaveBalanceCard = (props) => {
         justifyContent: "center",
         alignItems: "center",
         color: "#8C8C8C",
+        order: orderMap[props.leaveType] || 0,
       }}
     >
       <p style={{ fontWeight: 400, fontSize: 16 }}>{props.leaveType}</p>
