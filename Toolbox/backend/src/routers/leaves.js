@@ -15,8 +15,8 @@ router.get("/leave/request/:account_id", getLeaveRequestByAccountId); //Upcoming
 router.put("/leave/request", createLeaveRequest); //LeaveRequest > createLeaveRequest
 router.delete("/leave/request", deleteLeaveRequest);
 
-router.post("/leave/approval", getLeaveRequestByDeptManager);
-router.patch("/leave/approval", updateLeaveRequestStatusAndQuota);
+router.post("/leave/approval", getLeaveRequestByDeptManager); //LeavePending > getPendingLeaveRequest
+router.patch("/leave/approval", updateLeaveRequestStatusAndQuota); //LeavePending > handleApprove/handleReject
 
 router.get("/leaves", getAllLeaveQuotas);
 router.get("/leaves/balance/:account_id", getLeaveBalaceByAccountId); //LeaveManagement > getLeaveBalance

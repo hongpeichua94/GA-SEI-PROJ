@@ -8,16 +8,7 @@ import VerticalMenu from "../components/VerticalMenu";
 import ProfileBanner from "../components/ProfileBanner";
 
 // ANT DESIGN
-import {
-  Button,
-  Divider,
-  List,
-  Layout,
-  Table,
-  Space,
-  theme,
-  message,
-} from "antd";
+import { Divider, Layout, Table, Space, theme, message } from "antd";
 
 import styles from "./Profile.module.css";
 
@@ -84,13 +75,13 @@ const LeavePending = (props) => {
             style={{ color: "#28B48A" }}
             onClick={() => handleApprove(record.uuid)}
           >
-            Approve {record.uuid}
+            Approve
           </a>
           <a
             style={{ color: "#FF6C64" }}
             onClick={() => handleReject(record.uuid)}
           >
-            Reject {record.uuid}
+            Reject
           </a>
         </Space>
       ),
@@ -154,10 +145,6 @@ const LeavePending = (props) => {
       console.log(res.data);
     }
   };
-
-  //   PATCH update leave_request status [DONE]
-  //   PATCH update leave_quota
-  //   ANNUAL LEAVE --- TOTAL APPROVED (SUM DURATION) -- PUSH THIS NUMBER TO USED
 
   useEffect(() => {
     if (userCtx.accountId) {

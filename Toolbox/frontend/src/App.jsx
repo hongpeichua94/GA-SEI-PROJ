@@ -10,6 +10,7 @@ import Directory from "./pages/Directory";
 import LeaveManagement from "./pages/LeaveManagement";
 import LeaveRequest from "./pages/LeaveRequest";
 import LeavePending from "./pages/LeavePending";
+import Expense from "./pages/Expense";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
@@ -74,7 +75,6 @@ function App() {
             )
           }
         />
-
         <Route
           path="/profile/:account_id"
           element={
@@ -90,10 +90,9 @@ function App() {
             )
           }
         />
-
         <Route path="/directory" element={<Directory />} />
         <Route
-          path="/leave"
+          path="/leave/:account_id"
           element={
             <LeaveManagement
               fetchEmployeeData={fetchEmployeeData}
@@ -126,6 +125,22 @@ function App() {
           }
         />
         <Route
+          path="/expense/:account_id"
+          element={
+            isLoggedIn ? (
+              <Expense
+                fetchEmployeeData={fetchEmployeeData}
+                fetchEmployeeCurrentTitle={fetchEmployeeCurrentTitle}
+                employeeDetails={employeeDetails}
+                employeeCurrentTitle={employeeCurrentTitle}
+              />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
+
+        <Route
           path="/admin"
           element={
             <Admin
@@ -134,7 +149,6 @@ function App() {
             />
           }
         />
-
         <Route path="*" element={<NotFound />} />
       </Routes>
     </UserContext.Provider>

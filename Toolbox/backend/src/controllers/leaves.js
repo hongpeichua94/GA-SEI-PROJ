@@ -186,10 +186,10 @@ const updateLeaveRequestStatusAndQuota = async (req, res) => {
 
         // Update leave_quota table
         const updateLeaveQuotaQuery = `
-          UPDATE leave_quotas
-          SET used = $1
-          WHERE leave_type = $2
-            AND employee_id = $3`;
+        UPDATE leave_quotas
+        SET used = $1
+        WHERE leave_type = $2
+          AND employee_id = $3`;
 
         await db.query(updateLeaveQuotaQuery, [
           totalUsed,

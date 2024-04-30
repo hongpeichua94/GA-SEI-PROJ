@@ -19,6 +19,7 @@ import {
   Upload,
   message,
 } from "antd";
+
 import { PlusOutlined } from "@ant-design/icons";
 
 import styles from "./Profile.module.css";
@@ -151,6 +152,7 @@ const LeaveRequest = (props) => {
                 <button onClick={createLeaveRequest}>submit</button>
                 <br />
                 <br />
+
                 {/* <Form
                   {...formItemLayout}
                   variant="filled"
@@ -168,7 +170,7 @@ const LeaveRequest = (props) => {
                       },
                     ]}
                   >
-                    <Select ref={leaveTypeRef}>
+                    <Select>
                       <Select.Option value="ANNUAL">Annual</Select.Option>
                       <Select.Option value="SICK">Sick</Select.Option>
                       <Select.Option value="CHILDCARE">Childcare</Select.Option>
@@ -187,7 +189,7 @@ const LeaveRequest = (props) => {
                       },
                     ]}
                   >
-                    <DatePicker ref={startDateRef} />
+                    <DatePicker />
                   </Form.Item>
 
                   <Form.Item
@@ -200,19 +202,16 @@ const LeaveRequest = (props) => {
                       },
                     ]}
                   >
-                    <DatePicker ref={endDateRef} />
+                    <DatePicker />
                   </Form.Item>
 
                   <Form.Item
                     label="Upload"
+                    name="file_url"
                     valuePropName="fileList"
                     getValueFromEvent={normFile}
                   >
-                    <Upload
-                      action="/upload.do"
-                      listType="picture-card"
-                      ref={fileRef}
-                    >
+                    <Upload action="/upload.do" listType="picture-card">
                       <button
                         style={{
                           border: 0,
@@ -233,7 +232,7 @@ const LeaveRequest = (props) => {
                   </Form.Item>
 
                   <Form.Item label="Remarks" name="remarks">
-                    <Input.TextArea ref={remarksRef} />
+                    <Input.TextArea />
                   </Form.Item>
 
                   <Form.Item
