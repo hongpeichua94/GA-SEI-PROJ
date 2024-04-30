@@ -8,9 +8,11 @@ const {
 
 const router = express.Router();
 
-router.get("/departments", getAllDepartments);
-router.put("/departments", addDepartment);
-router.put("/departments/managers", addDepartmentManager);
-router.get("/departments/managers", getActiveDepartmentManagers);
+const { authUser, authAdmin } = require("../middleware/auth");
+
+router.get("/departments", authUser, getAllDepartments);
+router.put("/departments", authAdmin, addDepartment);
+router.put("/departments/managers", authAdmin, addDepartmentManager);
+router.get("/departments/managers", authUser, getActiveDepartmentManagers);
 
 module.exports = router;
