@@ -13,7 +13,6 @@ import { Button, Space, Input, Switch, Dropdown, message } from "antd";
 import { UserAddOutlined, DownOutlined } from "@ant-design/icons";
 
 import styles from "./Directory.module.css";
-import user from "../context/user";
 
 const { Header, Content, Sider } = Layout;
 const { Search } = Input;

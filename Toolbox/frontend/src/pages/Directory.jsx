@@ -12,7 +12,7 @@ import UpdateProfileModal from "../components/UpdateProfileModal";
 import { Layout, theme } from "antd";
 import { Avatar, Button, Space, Divider, Table, Badge, Input } from "antd";
 
-import qs from "qs";
+// import qs from "qs";
 
 import styles from "./Directory.module.css";
 

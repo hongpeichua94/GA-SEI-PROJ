@@ -35,13 +35,13 @@ const VerticalMenu = () => {
     getItem("My Profile", `/profile/${userCtx.accountId}`, <ProfileOutlined />),
     getItem("Employee Directory", "/directory", <TeamOutlined />),
     getItem("Leave Management", "sub1", <CalendarOutlined />, [
-      getItem("Overview", "/leave"),
+      getItem("Overview", `/leave/${userCtx.accountId}`),
       getItem("Request Time Off", "/leave/apply"),
       getItem("Pending Approval", "/leave/pending"),
     ]),
     getItem("Expense Tracker", "sub2", <DollarOutlined />, [
+      getItem("My Expenses", `/expense/${userCtx.accountId}`),
       getItem("Submit Expense", "/expense/submit"),
-      getItem("Expense History", "/expense/record"),
     ]),
     getItem("Knowledge Base", "/knowledge-base", <StarOutlined />),
     getItem("Admin Console", "/admin", <FileOutlined />),
