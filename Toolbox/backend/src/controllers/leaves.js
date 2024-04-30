@@ -84,7 +84,7 @@ const createLeaveRequest = async (req, res) => {
 const deleteLeaveRequest = async (req, res) => {
   try {
     await db.query("DELETE FROM leave_requests WHERE uuid = $1", [
-      req.params.uuid,
+      req.body.uuid,
     ]);
     res.json({ status: "ok", msg: "Leave request deleted" });
   } catch (error) {
@@ -134,19 +134,75 @@ const getLeaveRequestByDeptManager = async (req, res) => {
 };
 
 // To update leave request status
-const updateLeaveRequestStatus = async (req, res) => {
+const updateLeaveRequestStatusAndQuota = async (req, res) => {
   try {
-    const updateQuery = `
+    const updateLeaveRequestQuery = `
       UPDATE leave_requests
       SET
           status = $1,
           updated_at = NOW()
       WHERE uuid = $2`;
 
-    await db.query(updateQuery, [req.body.status, req.body.uuid]);
-    res
-      .status(200)
-      .json({ status: "success", msg: "Leave request updated successfully" });
+    // Update leave request status
+    await db.query(updateLeaveRequestQuery, [req.body.status, req.body.uuid]);
+
+    // Fetch leave request details based on request_id (uuid)
+    const leaveRequestResult = await db.query(
+      "SELECT leave_type, requestor_id, duration, status FROM leave_requests WHERE uuid = $1",
+      [req.body.uuid]
+    );
+
+    const leaveRequestStatus = leaveRequestResult.rows[0].status;
+    // const leaveType = leaveRequestResult.rows[0].leave_type;
+    const requestorId = leaveRequestResult.rows[0].requestor_id;
+
+    // Check if leave request status is 'APPROVED'
+    if (leaveRequestStatus === "APPROVED") {
+      // Get leave request details based on requestor_id and calculate leave used/approved
+      const leaveRequestByEmployeeId = await db.query(
+        `
+        SELECT
+          requestor_id,
+          leave_type,
+          sum(duration) as total_used,
+          status
+        FROM leave_requests
+        WHERE requestor_id = $1
+          AND status = 'APPROVED'
+        GROUP BY 1,2,4`,
+        [requestorId]
+      );
+
+      // Iterate over each row
+      for (const row of leaveRequestByEmployeeId.rows) {
+        const totalUsed = row.total_used;
+        const leaveType = row.leave_type;
+        const employeeId = row.requestor_id;
+
+        // Use employeeId, totalUsed, and leaveType as needed
+        console.log(
+          `Employee ID: ${employeeId}, Leave Type: ${leaveType}, Total Used: ${totalUsed}`
+        );
+
+        // Update leave_quota table
+        const updateLeaveQuotaQuery = `
+          UPDATE leave_quotas
+          SET used = $1
+          WHERE leave_type = $2
+            AND employee_id = $3`;
+
+        await db.query(updateLeaveQuotaQuery, [
+          totalUsed,
+          leaveType,
+          requestorId,
+        ]);
+      }
+    }
+
+    res.status(200).json({
+      status: "success",
+      msg: "Leave request and quota updated successfully",
+    });
   } catch (error) {
     console.error("Error updating leave request:", error);
     res.status(500).json({ status: "error", msg: "Internal server error" });
@@ -189,7 +245,7 @@ module.exports = {
   deleteLeaveRequest,
   getLeaveRequestByAccountId,
   getLeaveRequestByDeptManager,
-  updateLeaveRequestStatus,
+  updateLeaveRequestStatusAndQuota,
   getAllLeaveQuotas,
   getLeaveBalaceByAccountId,
 };

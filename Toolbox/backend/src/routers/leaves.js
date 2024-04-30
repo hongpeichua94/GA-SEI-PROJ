@@ -4,7 +4,7 @@ const {
   deleteLeaveRequest,
   getLeaveRequestByAccountId,
   getLeaveRequestByDeptManager,
-  updateLeaveRequestStatus,
+  updateLeaveRequestStatusAndQuota,
   getAllLeaveQuotas,
   getLeaveBalaceByAccountId,
 } = require("../controllers/leaves");
@@ -13,10 +13,10 @@ const router = express.Router();
 
 router.get("/leave/request/:account_id", getLeaveRequestByAccountId); //UpcomingLeave > getLeaveRequest
 router.put("/leave/request", createLeaveRequest); //LeaveRequest > createLeaveRequest
-router.delete("/leave/request/:uuid", deleteLeaveRequest);
+router.delete("/leave/request", deleteLeaveRequest);
 
 router.post("/leave/approval", getLeaveRequestByDeptManager);
-router.patch("/leave/approval", updateLeaveRequestStatus);
+router.patch("/leave/approval", updateLeaveRequestStatusAndQuota);
 
 router.get("/leaves", getAllLeaveQuotas);
 router.get("/leaves/balance/:account_id", getLeaveBalaceByAccountId); //LeaveManagement > getLeaveBalance
