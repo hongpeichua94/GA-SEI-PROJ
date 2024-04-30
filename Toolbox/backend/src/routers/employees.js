@@ -12,14 +12,19 @@ const {
 
 const router = express.Router();
 
-router.get("/employees", getAllEmployees);
-router.get("/employees/search", getEmployeeByEmailOrName); //Directory > getAllEmployeeInfo
+const { authUser, authAdmin } = require("../middleware/auth");
 
-router.get("/employee/:account_id", getEmployeeByAccountId); //Dashboard > getEmployeeInfo
-router.patch("/employee/:account_id", updateEmployeeDetails); //Profile > updateEmployeeDetails
-router.put("/employee/titles", addEmployeeTitles);
-router.patch("/employee/titles/:uuid", updateEmployeeTitles);
-router.get("/employee/titles/search", getEmployeeTitlesByEmail);
-router.get("/employee/titles/:account_id", getEmployeeTitleByAccountId); //Dashboard/Profile> getEmployeeCurrentTitle; Profile > getEmployeeTitles
+router.get("/employees", authUser, getAllEmployees);
+router.get("/employee/:account_id", authUser, getEmployeeByAccountId); //Dashboard > getEmployeeInfo
+router.get("/employees/search", authUser, getEmployeeByEmailOrName); //Directory > getAllEmployeeInfo
+router.patch("/employee/:account_id", authUser, updateEmployeeDetails); //Profile > updateEmployeeDetails
+router.put("/employee/titles", authAdmin, addEmployeeTitles);
+router.patch("/employee/titles/:uuid", authAdmin, updateEmployeeTitles);
+router.get("/employee/titles/search", authUser, getEmployeeTitlesByEmail);
+router.get(
+  "/employee/titles/:account_id",
+  authUser,
+  getEmployeeTitleByAccountId
+); //Dashboard/Profile> getEmployeeCurrentTitle; Profile > getEmployeeTitles
 
 module.exports = router;
