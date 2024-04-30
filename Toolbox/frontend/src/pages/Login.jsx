@@ -6,19 +6,20 @@ import { ToolTwoTone } from "@ant-design/icons";
 import { Button, Form, Input, Typography } from "antd";
 
 const Login = () => {
+  const fetchData = useFetch();
+  const userCtx = useContext(UserContext);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const { Title } = Typography;
+
   const onFinish = (values) => {
     console.log("Success:", values);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-
-  const fetchData = useFetch();
-
-  const userCtx = useContext(UserContext);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
     const res = await fetchData("/auth/login", "POST", { email, password });

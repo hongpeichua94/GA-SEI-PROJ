@@ -7,7 +7,7 @@ import VerticalMenu from "../components/VerticalMenu";
 import NewEmployee from "../components/NewEmployee";
 
 // ANT DESIGN
-import { Breadcrumb, Layout, theme } from "antd";
+import { Layout, theme } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Space } from "antd";
 
@@ -63,27 +63,17 @@ const Dashboard = () => {
               padding: 10,
               // background: colorBgContainer,
             }}
-          >
-            <Breadcrumb
-              style={{
-                margin: "16px 0",
-              }}
-            >
-              <Breadcrumb.Item>User</Breadcrumb.Item>
-              <Breadcrumb.Item>Name</Breadcrumb.Item>
-            </Breadcrumb>
-          </div>
+          ></div>
           <Header
             style={{
               padding: 10,
               margin: "0 16px",
-              height: 180,
+              height: 130,
               maxWidth: "90vw",
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
             }}
           >
-            <h5>Home</h5>
             <div className="dashboard-profile">
               <Space wrap size={16}>
                 <Avatar

@@ -18,14 +18,6 @@ import { getLeaveBalance } from "../scripts/api";
 
 const { Content, Sider } = Layout;
 
-const data = [
-  "Racing car sprays burning fuel into crowd.",
-  "Japanese princess to wed commoner.",
-  "Australian walks 100km after outback crash.",
-  "Man charged over missing wedding girl.",
-  "Los Angeles battles huge wildfires.",
-];
-
 const LeaveManagement = (props) => {
   const userCtx = useContext(UserContext);
   const [overview, setOverview] = useState([]);
@@ -81,7 +73,12 @@ const LeaveManagement = (props) => {
               );
             })}
           </div>
-          <Content style={{ margin: "10px 16px" }}>
+          <Content
+            style={{
+              margin: "10px 16px",
+              minHeight: "50vh",
+            }}
+          >
             <div
               style={{
                 padding: "10px 24px",
@@ -93,6 +90,12 @@ const LeaveManagement = (props) => {
             >
               <UpcomingLeave></UpcomingLeave>
             </div>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
           </Content>
         </Layout>
       </Layout>
