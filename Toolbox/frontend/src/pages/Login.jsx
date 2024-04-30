@@ -26,6 +26,7 @@ const Login = () => {
     if (res.ok) {
       userCtx.setAccessToken(res.data.access);
       userCtx.setAccountId(res.data.account_id);
+      userCtx.setRole(res.data.role);
       const decoded = jwtDecode(res.data.access);
       userCtx.setRole(decoded.role);
     } else {

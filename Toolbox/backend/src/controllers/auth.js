@@ -136,7 +136,7 @@ const login = async (req, res) => {
       jwtid: uuidv4(),
     });
 
-    res.json({ access, refresh, account_id: account.uuid });
+    res.json({ access, refresh, account_id: account.uuid, role: account.role });
   } catch (error) {
     console.error(error.message);
     return res
