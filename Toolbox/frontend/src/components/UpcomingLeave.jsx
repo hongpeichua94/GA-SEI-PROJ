@@ -50,12 +50,17 @@ const UpcomingLeave = () => {
     <>
       <Divider orientation="center">Upcoming Time-Off</Divider>
       <List
+        className="delete-request"
         itemLayout="horizontal"
         dataSource={data}
         renderItem={(item, index) => (
           <List.Item
             actions={[
-              <a key="delete" onClick={() => handleDelete(item.uuid)}>
+              <a
+                key="delete"
+                onClick={() => handleDelete(item.uuid)}
+                style={{ textDecoration: "none", color: "rgba(0, 0, 0, 0.45)" }}
+              >
                 Delete Request
               </a>,
             ]}

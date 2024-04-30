@@ -21,6 +21,7 @@ import {
 } from "antd";
 
 import { PlusOutlined } from "@ant-design/icons";
+import dayjs from "dayjs";
 
 import styles from "./Profile.module.css";
 
@@ -56,37 +57,50 @@ const LeaveRequest = (props) => {
   const fetchData = useFetch();
   const userCtx = useContext(UserContext);
 
-  const leaveTypeRef = useRef("");
-  const startDateRef = useRef("");
-  const endDateRef = useRef("");
-  const fileRef = useRef("");
-  const remarksRef = useRef("");
+  const [leaveType, setLeaveType] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [fileUrl, setFileUrl] = useState("");
+  const [remarks, setRemarks] = useState("");
+  const accountId = userCtx.accountId;
 
-  const createLeaveRequest = async () => {
+  const createLeaveRequest = async (values) => {
+    const formattedStartDate = dayjs(values.start_date).format("YYYY-MM-DD");
+    const formattedEndDate = dayjs(values.end_date).format("YYYY-MM-DD");
+
     try {
       const res = await fetchData(
         "/api/leave/request",
         "PUT",
         {
           account_id: userCtx.accountId,
-          leave_type: leaveTypeRef.current.value,
-          start_date: startDateRef.current.value,
-          end_date: endDateRef.current.value,
-          file_url: fileRef.current.value,
-          remarks: remarksRef.current.value,
+          leave_type: values.type,
+          start_date: formattedStartDate,
+          end_date: formattedEndDate,
+          // file_url: values.file_url,
+          remarks: values.remarks,
         },
         userCtx.accessToken
       );
+
       if (res.ok) {
         message.success(`Leave request submitted!`);
         console.log(res.data);
       } else {
-        message.error(`Error submitting leave application`);
         console.error("Error submitting leave application:", res.data);
       }
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const onFinish = (values) => {
+    console.log("Success:", values);
+    createLeaveRequest(values);
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
   };
 
   const {
@@ -127,38 +141,19 @@ const LeaveRequest = (props) => {
                 borderRadius: borderRadiusLG,
               }}
             >
-              <div className="row">
-                <h3>INSERT LEAVE APPLICATION FORM HRE</h3>
+              <div className="row" style={{ textAlign: "center" }}>
+                <h4>Request Time Off</h4>
               </div>
               <br />
               <div className="form">
-                <input
-                  placeholder="type"
-                  ref={leaveTypeRef}
-                  type="text"
-                ></input>
-                <input
-                  placeholder="start"
-                  ref={startDateRef}
-                  type="date"
-                ></input>
-                <input placeholder="end" ref={endDateRef} type="date"></input>
-                <input
-                  placeholder="remarks"
-                  ref={remarksRef}
-                  type="text"
-                ></input>
-                <input placeholder="file" ref={fileRef} type="text"></input>
-                <button onClick={createLeaveRequest}>submit</button>
-                <br />
-                <br />
-
-                {/* <Form
+                <Form
                   {...formItemLayout}
                   variant="filled"
                   style={{
                     maxWidth: 600,
                   }}
+                  onFinish={onFinish}
+                  onFinishFailed={onFinishFailed}
                 >
                   <Form.Item
                     label="Leave Type"
@@ -166,9 +161,11 @@ const LeaveRequest = (props) => {
                     rules={[
                       {
                         required: true,
-                        message: "Please input!",
+                        message: "Please select an option!",
                       },
                     ]}
+                    value={leaveType}
+                    onMetaChange={(e) => setLeaveType(e.target.value)}
                   >
                     <Select>
                       <Select.Option value="ANNUAL">Annual</Select.Option>
@@ -185,9 +182,11 @@ const LeaveRequest = (props) => {
                     rules={[
                       {
                         required: true,
-                        message: "Please input!",
+                        message: "Please input start date!",
                       },
                     ]}
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
                   >
                     <DatePicker />
                   </Form.Item>
@@ -198,18 +197,22 @@ const LeaveRequest = (props) => {
                     rules={[
                       {
                         required: true,
-                        message: "Please input!",
+                        message: "Please input end date!",
                       },
                     ]}
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
                   >
                     <DatePicker />
                   </Form.Item>
 
-                  <Form.Item
+                  {/* <Form.Item
                     label="Upload"
                     name="file_url"
                     valuePropName="fileList"
                     getValueFromEvent={normFile}
+                    value={fileUrl}
+                    onChange={(e) => setFileUrl(e.target.value)}
                   >
                     <Upload action="/upload.do" listType="picture-card">
                       <button
@@ -229,9 +232,14 @@ const LeaveRequest = (props) => {
                         </div>
                       </button>
                     </Upload>
-                  </Form.Item>
+                  </Form.Item> */}
 
-                  <Form.Item label="Remarks" name="remarks">
+                  <Form.Item
+                    label="Remarks"
+                    name="remarks"
+                    value={remarks}
+                    onChange={(e) => setRemarks(e.target.value)}
+                  >
                     <Input.TextArea />
                   </Form.Item>
 
@@ -249,7 +257,7 @@ const LeaveRequest = (props) => {
                       Submit
                     </Button>
                   </Form.Item>
-                </Form> */}
+                </Form>
               </div>
             </div>
           </Content>
