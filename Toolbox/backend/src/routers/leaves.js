@@ -11,14 +11,16 @@ const {
 
 const router = express.Router();
 
-router.get("/leave/request/:account_id", getLeaveRequestByAccountId); //UpcomingLeave > getLeaveRequest
-router.put("/leave/request", createLeaveRequest); //LeaveRequest > createLeaveRequest
-router.delete("/leave/request", deleteLeaveRequest);
+const { authUser, authManager, authAdmin } = require("../middleware/auth");
 
-router.post("/leave/approval", getLeaveRequestByDeptManager); //LeavePending > getPendingLeaveRequest
-router.patch("/leave/approval", updateLeaveRequestStatusAndQuota); //LeavePending > handleApprove/handleReject
+router.get("/leave/request/:account_id", authUser, getLeaveRequestByAccountId); //UpcomingLeave > getLeaveRequest
+router.put("/leave/request", authUser, createLeaveRequest); //LeaveRequest > createLeaveRequest
+router.delete("/leave/request", authUser, deleteLeaveRequest);
 
-router.get("/leaves", getAllLeaveQuotas);
-router.get("/leaves/balance/:account_id", getLeaveBalaceByAccountId); //LeaveManagement > getLeaveBalance
+router.post("/leave/approval", authManager, getLeaveRequestByDeptManager); //LeavePending > getPendingLeaveRequest
+router.patch("/leave/approval", authManager, updateLeaveRequestStatusAndQuota); //LeavePending > handleApprove/handleReject
+
+router.get("/leaves", authUser, getAllLeaveQuotas);
+router.get("/leaves/balance/:account_id", authUser, getLeaveBalaceByAccountId); //LeaveManagement > getLeaveBalance
 
 module.exports = router;
