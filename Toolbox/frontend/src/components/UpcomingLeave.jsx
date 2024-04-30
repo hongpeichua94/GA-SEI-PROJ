@@ -3,15 +3,7 @@ import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 
 // ANT DESIGN
-import { Divider, List, Typography, Avatar } from "antd";
-
-// const data = [
-//   "Racing car sprays burning fuel into crowd.",
-//   "Japanese princess to wed commoner.",
-//   "Australian walks 100km after outback crash.",
-//   "Man charged over missing wedding girl.",
-//   "Los Angeles battles huge wildfires.",
-// ];
+import { Divider, List, Typography, Avatar, message } from "antd";
 
 // SCRIPTS
 import { getLeaveRequest } from "../scripts/api";
@@ -28,6 +20,26 @@ const UpcomingLeave = () => {
     setData(leaveRequest);
   };
 
+  const handleDelete = async (uuid) => {
+    const res = await fetchData(
+      "/api/leave/request",
+      "DELETE",
+      {
+        uuid: uuid,
+      },
+      userCtx.accessToken
+    );
+
+    if (res.ok) {
+      message.success("Leave request deleted successfully");
+      console.log(res.data);
+      await fetchLeaveRequest(userCtx.accountId, userCtx.accessToken);
+    } else {
+      alert(JSON.stringify(res.data));
+      console.log(res.data);
+    }
+  };
+
   useEffect(() => {
     if (userCtx.accountId) {
       fetchLeaveRequest(userCtx.accountId, userCtx.accessToken);
@@ -41,13 +53,14 @@ const UpcomingLeave = () => {
         itemLayout="horizontal"
         dataSource={data}
         renderItem={(item, index) => (
-          <List.Item actions={[<a key="delete">delete</a>]}>
+          <List.Item
+            actions={[
+              <a key="delete" onClick={() => handleDelete(item.uuid)}>
+                Delete Request
+              </a>,
+            ]}
+          >
             <List.Item.Meta
-              //   avatar={
-              //     <Avatar
-              //       src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${index}`}
-              //     />
-              //   }
               title={`[${item.status}] ${item.leave_type} LEAVE (${item.duration} DAYS)`}
               description={`From ${item.start_date.split("T")[0]} to ${
                 item.end_date.split("T")[0]
