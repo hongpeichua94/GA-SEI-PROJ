@@ -13,6 +13,7 @@ import LeavePending from "./pages/LeavePending";
 import Expense from "./pages/Expense";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
+import ComingSoon from "./pages/ComingSoon";
 
 // SCRIPTS
 import { getEmployeeInfo, getEmployeeCurrentTitle } from "./scripts/api";
@@ -94,37 +95,49 @@ function App() {
         <Route
           path="/leave/:account_id"
           element={
-            <LeaveManagement
-              fetchEmployeeData={fetchEmployeeData}
-              fetchEmployeeCurrentTitle={fetchEmployeeCurrentTitle}
-              employeeDetails={employeeDetails}
-              employeeCurrentTitle={employeeCurrentTitle}
-            />
+            isLoggedIn ? (
+              <LeaveManagement
+                fetchEmployeeData={fetchEmployeeData}
+                fetchEmployeeCurrentTitle={fetchEmployeeCurrentTitle}
+                employeeDetails={employeeDetails}
+                employeeCurrentTitle={employeeCurrentTitle}
+              />
+            ) : (
+              <Navigate to="/" />
+            )
           }
         />
         <Route
           path="/leave/apply"
           element={
-            <LeaveRequest
-              fetchEmployeeData={fetchEmployeeData}
-              fetchEmployeeCurrentTitle={fetchEmployeeCurrentTitle}
-              employeeDetails={employeeDetails}
-              employeeCurrentTitle={employeeCurrentTitle}
-            />
+            isLoggedIn ? (
+              <LeaveRequest
+                fetchEmployeeData={fetchEmployeeData}
+                fetchEmployeeCurrentTitle={fetchEmployeeCurrentTitle}
+                employeeDetails={employeeDetails}
+                employeeCurrentTitle={employeeCurrentTitle}
+              />
+            ) : (
+              <Navigate to="/" />
+            )
           }
         />
         <Route
           path="/leave/pending"
           element={
-            <LeavePending
-              fetchEmployeeData={fetchEmployeeData}
-              fetchEmployeeCurrentTitle={fetchEmployeeCurrentTitle}
-              employeeDetails={employeeDetails}
-              employeeCurrentTitle={employeeCurrentTitle}
-            />
+            isLoggedIn ? (
+              <LeavePending
+                fetchEmployeeData={fetchEmployeeData}
+                fetchEmployeeCurrentTitle={fetchEmployeeCurrentTitle}
+                employeeDetails={employeeDetails}
+                employeeCurrentTitle={employeeCurrentTitle}
+              />
+            ) : (
+              <Navigate to="/" />
+            )
           }
         />
-        <Route
+        {/* <Route
           path="/expense/:account_id"
           element={
             isLoggedIn ? (
@@ -138,8 +151,15 @@ function App() {
               <Navigate to="/" />
             )
           }
+        /> */}
+        <Route
+          path="/expense/:account_id"
+          element={isLoggedIn ? <ComingSoon /> : <Navigate to="/" />}
         />
-
+        <Route
+          path="/knowledge-base"
+          element={isLoggedIn ? <ComingSoon /> : <Navigate to="/" />}
+        />
         <Route
           path="/admin"
           element={
