@@ -87,6 +87,7 @@ const LeaveRequest = (props) => {
         message.success(`Leave request submitted!`);
         console.log(res.data);
       } else {
+        // message.error(res.data);
         console.error("Error submitting leave application:", res.data);
       }
     } catch (error) {
