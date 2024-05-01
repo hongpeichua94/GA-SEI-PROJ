@@ -6,7 +6,17 @@ const {
   deleteExpenseRequest,
   getExpenseRequestByDeptManager,
   updateExpenseRequestStatus,
+  getExpenseSummaryByAccountId,
 } = require("../controllers/expenses");
+
+const {
+  validateAccountIdInBody,
+  validateIdInBody,
+  validateCreateExpenseRequestData,
+  validateUpdateExpenseRequestStatusData,
+} = require("../validators/expenses");
+
+const { errorCheck } = require("../validators/errorCheck");
 
 const { authUser, authManager, authAdmin } = require("../middleware/auth");
 
@@ -16,27 +26,31 @@ router.get("/expense/:account_id", getExpensesByAccountId); //Expense > getMyExp
 router.put(
   "/expense/submit",
   authUser,
-  // validateAccountIdInBody,
-  // validateCreateLeaveRequestData,
-  // errorCheck,
+  validateAccountIdInBody,
+  validateCreateExpenseRequestData,
+  errorCheck,
   createExpenseRequest
 ); //ExpenseSubmit > createExpenseRequest
 router.delete(
   "/expense/submit",
   authUser,
-  // validateIdInBody,
-  // errorCheck,
+  validateIdInBody,
+  errorCheck,
   deleteExpenseRequest
 );
-
 router.post("/expense/approval", authManager, getExpenseRequestByDeptManager); //ExpensePending > getPendingExpenseRequest
 router.patch(
   "/expense/approval",
   authManager,
-  //   validateIdInBody,
-  //   validateUpdateLeaveRequestStatusData,
-  //   errorCheck,
+  validateIdInBody,
+  validateUpdateExpenseRequestStatusData,
+  errorCheck,
   updateExpenseRequestStatus
 ); //ExpensePending > handleApprove/handleReject
+router.get(
+  "/expense/summary/:account_id",
+  authUser,
+  getExpenseSummaryByAccountId
+); //LeaveManagement > getLeaveBalance
 
 module.exports = router;

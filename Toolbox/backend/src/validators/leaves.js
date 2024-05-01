@@ -45,7 +45,7 @@ const validateCreateLeaveRequestData = [
 ];
 
 const validateUpdateLeaveRequestStatusData = [
-  body("status", "Leave type is required").not().isEmpty(),
+  body("status", "Status is required").not().isEmpty(),
 ];
 
 module.exports = {
