@@ -6,7 +6,7 @@ import UserContext from "../context/user";
 import NavBar from "../components/NavBar";
 import VerticalMenu from "../components/VerticalMenu";
 import ProfileBanner from "../components/ProfileBanner";
-import LeaveBalanceCard from "../components/LeaveBalanceCard";
+import ExpenseSummaryCard from "../components/ExpenseSummaryCard";
 
 // ANT DESIGN
 import { Divider, Layout, Table, Space, theme, message } from "antd";
@@ -14,7 +14,7 @@ import { Divider, Layout, Table, Space, theme, message } from "antd";
 import styles from "./Profile.module.css";
 
 // SCRIPTS
-import { getEmployeeExpense } from "../scripts/api";
+import { getEmployeeExpense, getEmployeeExpenseSummary } from "../scripts/api";
 
 const { Content, Sider } = Layout;
 
@@ -23,6 +23,7 @@ const Expense = (props) => {
   const userCtx = useContext(UserContext);
 
   const [expenses, setExpenses] = useState([]);
+  const [expenseSummary, setExpenseSummary] = useState([]);
   const [loading, setLoading] = useState(false);
   const [tableParams, setTableParams] = useState({
     pagination: {
@@ -82,9 +83,19 @@ const Expense = (props) => {
     }
   };
 
+  const fetchEmployeeExpenseSummary = async (accountId, accessToken) => {
+    const expenseSummary = await getEmployeeExpenseSummary(
+      accountId,
+      accessToken
+    );
+    console.log(expenseSummary);
+    setExpenseSummary(expenseSummary);
+  };
+
   useEffect(() => {
     if (userCtx.accountId) {
       fetchEmployeeExpense(userCtx.accountId, userCtx.accessToken);
+      fetchEmployeeExpenseSummary(userCtx.accountId, userCtx.accessToken);
     }
   }, [userCtx.accountId, userCtx.accessToken]);
 
@@ -114,7 +125,19 @@ const Expense = (props) => {
               flexDirection: "row",
               alignItems: "center",
             }}
-          ></div>
+          >
+            {expenseSummary.map((item) => {
+              return (
+                <ExpenseSummaryCard
+                  key={item.id}
+                  id={item.id}
+                  status={item.status}
+                  amount={item.total_amount}
+                  fetchEmployeeExpenseSummary={fetchEmployeeExpenseSummary}
+                ></ExpenseSummaryCard>
+              );
+            })}
+          </div>
           <Content style={{ margin: "10px 16px" }}>
             <div
               style={{

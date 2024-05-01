@@ -151,10 +151,35 @@ const updateExpenseRequestStatus = async (req, res) => {
   }
 };
 
+const getExpenseSummaryByAccountId = async (req, res) => {
+  try {
+    let query = `
+            SELECT
+                a.status,
+                sum(a.amount) as total_amount
+            FROM expense_requests a
+            JOIN employees b ON a.requestor_id = b.id 
+            WHERE account_id = $1
+            GROUP BY 1`;
+
+    const value = [req.params.account_id];
+
+    const summary = await db.query(query, value);
+    res.json(summary.rows);
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({
+      status: "error",
+      msg: "Error getting employee's expenses overview",
+    });
+  }
+};
+
 module.exports = {
   getExpensesByAccountId,
   createExpenseRequest,
   deleteExpenseRequest,
   getExpenseRequestByDeptManager,
   updateExpenseRequestStatus,
+  getExpenseSummaryByAccountId,
 };
