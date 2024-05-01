@@ -131,7 +131,16 @@ const OverLay = (props) => {
           <div className="row">
             <div className="col-md-1"></div>
             <div className="col-md-3">Department</div>
-            <input ref={departmentRef} type="text" className="col-md-6" />
+            <select ref={departmentRef} className="col-md-6">
+              <option value="">---Select Department---</option>
+              <option value="Operations">Operations</option>
+              <option value="Finance">Finance</option>
+              <option value="Marketing">Marketing</option>
+              <option value="Human Resource">Human Resource</option>
+              <option value="Product">Product</option>
+              <option value="Engineering">Engineering</option>
+              <option value="Data">Data</option>
+            </select>
             <div className="col-md-3"></div>
           </div>
 
