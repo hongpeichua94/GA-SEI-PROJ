@@ -62,6 +62,11 @@ const LeavePending = (props) => {
       width: "10%",
     },
     {
+      title: "Requested By",
+      dataIndex: "requestor_name",
+      width: "10%",
+    },
+    {
       title: "Action",
       key: "action",
       render: (record) => (
