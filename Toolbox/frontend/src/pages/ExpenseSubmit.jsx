@@ -93,7 +93,7 @@ const ExpenseSubmit = (props) => {
 
       if (res.ok) {
         message.success(`Expense request submitted!`);
-        console.log(res.data);
+        // console.log(res.data);
       } else {
         // message.error(res.data);
         console.error("Error submitting expense:", res.data);
@@ -104,7 +104,7 @@ const ExpenseSubmit = (props) => {
   };
 
   const onFinish = (values) => {
-    console.log("Success:", values);
+    // console.log("Success:", values);
     createExpenseRequest(values);
   };
 

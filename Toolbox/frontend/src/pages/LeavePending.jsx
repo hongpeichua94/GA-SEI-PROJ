@@ -118,7 +118,7 @@ const LeavePending = (props) => {
     );
     if (res.ok) {
       message.success("Action recorded successfully");
-      console.log(res.data);
+      // console.log(res.data);
       await fetchPendingLeaveRequest(userCtx.accountId, userCtx.accessToken);
     } else {
       alert(JSON.stringify(res.data));
@@ -138,7 +138,7 @@ const LeavePending = (props) => {
     );
     if (res.ok) {
       message.success("Action recorded successfully");
-      console.log(res.data);
+      // console.log(res.data);
       await fetchPendingLeaveRequest(userCtx.accountId, userCtx.accessToken);
     } else {
       alert(JSON.stringify(res.data));

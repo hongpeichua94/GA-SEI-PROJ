@@ -88,7 +88,6 @@ const Expense = (props) => {
       accountId,
       accessToken
     );
-    console.log(expenseSummary);
     setExpenseSummary(expenseSummary);
   };
 

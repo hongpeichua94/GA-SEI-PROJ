@@ -22,8 +22,6 @@ import { getAllEmployeeInfo } from "../scripts/api";
 const { Header, Content, Sider } = Layout;
 const { Search } = Input;
 
-// const onSearch = (value, _e, info) => console.log(info?.source, value);
-
 const Directory = () => {
   const fetchData = useFetch();
   const userCtx = useContext(UserContext);
@@ -129,29 +127,6 @@ const Directory = () => {
       console.error("Error fetching employee data:", error);
     }
   };
-
-  // const fetchData = () => {
-  //   setLoading(true);
-  //   fetch(
-  //     `https://randomuser.me/api?${qs.stringify(
-  //       getRandomuserParams(tableParams)
-  //     )}`
-  //   )
-  //     .then((res) => res.json())
-  //     .then(({ results }) => {
-  //       setData(results);
-  //       setLoading(false);
-  //       setTableParams({
-  //         ...tableParams,
-  //         pagination: {
-  //           ...tableParams.pagination,
-  //           total: 200,
-  //           // 200 is mock data, you should read it from server
-  //           // total: data.totalCount,
-  //         },
-  //       });
-  //     });
-  // };
 
   const onSearch = (value) => {
     setSearchInput(value); // Update the search input state

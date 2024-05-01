@@ -16,7 +16,6 @@ const UpcomingLeave = () => {
 
   const fetchLeaveRequest = async (accountId, accessToken) => {
     const leaveRequest = await getLeaveRequest(accountId, accessToken);
-    console.log(leaveRequest);
     setData(leaveRequest);
   };
 
@@ -32,7 +31,7 @@ const UpcomingLeave = () => {
 
     if (res.ok) {
       message.success("Leave request deleted successfully");
-      console.log(res.data);
+      // console.log(res.data);
       await fetchLeaveRequest(userCtx.accountId, userCtx.accessToken);
     } else {
       alert(JSON.stringify(res.data));

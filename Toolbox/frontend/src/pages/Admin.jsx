@@ -39,7 +39,6 @@ const Admin = () => {
         { email: value },
         userCtx.accessToken
       );
-      console.log(res.data[0]); // Handle the response as needed
       setSearchResult(res.data[0]);
       setAccountDetails(res.data[0]);
     } catch (error) {
@@ -97,7 +96,7 @@ const Admin = () => {
           message.success(
             `Account role updated successfully to "${clickedItem.label}"`
           );
-          console.log(res.data);
+          // console.log(res.data);
         } else {
           message.error(
             `Failed to update account role to ${clickedItem.label}`
@@ -107,7 +106,7 @@ const Admin = () => {
         console.error("Error updating account:", error);
       }
     }
-    console.log("click", e);
+    // console.log("click", e);
   };
 
   const items = [

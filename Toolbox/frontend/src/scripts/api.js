@@ -13,7 +13,7 @@ export const getAccountInfo = async (accountId, accessToken) => {
     );
 
     if (res.ok) {
-      console.log(res.data[0]);
+      // console.log(res.data[0]);
       return res.data[0];
     } else {
       console.error(res.data);
@@ -33,7 +33,7 @@ export const getEmployeeInfo = async (accountId, accessToken) => {
     );
 
     if (res.ok) {
-      console.log(res.data[0]);
+      // console.log(res.data[0]);
       return res.data[0];
     } else {
       console.error(res.data);
@@ -53,7 +53,7 @@ export const getEmployeeCurrentTitle = async (accountId, accessToken) => {
     );
 
     if (res.ok) {
-      console.log(res.data[0]);
+      // console.log(res.data[0]);
       return res.data[0];
     } else {
       console.log(res.data);
@@ -73,7 +73,7 @@ export const getEmployeeTitles = async (accountId, accessToken) => {
     );
 
     if (res.ok) {
-      console.log(res.data);
+      // console.log(res.data);
       return res.data;
     } else {
       console.log(res.data);
@@ -92,7 +92,7 @@ export const getLeaveBalance = async (accountId, accessToken) => {
       accessToken
     );
     if (res.ok) {
-      console.log(res.data);
+      // console.log(res.data);
       return res.data;
     } else {
       console.log(res.data);
@@ -111,7 +111,7 @@ export const getLeaveRequest = async (accountId, accessToken) => {
       accessToken
     );
     if (res.ok) {
-      console.log(res.data);
+      // console.log(res.data);
       return res.data;
     } else {
       console.log(res.data);
@@ -132,7 +132,7 @@ export const getPendingLeaveRequest = async (accountId, accessToken) => {
       accessToken
     );
     if (res.ok) {
-      console.log(res.data);
+      // console.log(res.data);
       return res.data;
     } else {
       console.log(res.data);
@@ -151,7 +151,7 @@ export const getEmployeeExpense = async (accountId, accessToken) => {
       accessToken
     );
     if (res.ok) {
-      console.log(res.data);
+      // console.log(res.data);
       return res.data;
     } else {
       console.log(res.data);
@@ -172,7 +172,7 @@ export const getPendingExpenseRequest = async (accountId, accessToken) => {
       accessToken
     );
     if (res.ok) {
-      console.log(res.data);
+      // console.log(res.data);
       return res.data;
     } else {
       console.log(res.data);
@@ -191,7 +191,7 @@ export const getEmployeeExpenseSummary = async (accountId, accessToken) => {
       accessToken
     );
     if (res.ok) {
-      console.log(res.data);
+      // console.log(res.data);
       return res.data;
     } else {
       console.log(res.data);
@@ -212,7 +212,7 @@ export const getAllEmployeeInfo = async (accessToken, input) => {
     const res = await fetchData(url, "GET", undefined, accessToken);
 
     if (res.ok) {
-      console.log(res.data);
+      // console.log(res.data);
       return res.data;
     } else {
       console.log(res.data);

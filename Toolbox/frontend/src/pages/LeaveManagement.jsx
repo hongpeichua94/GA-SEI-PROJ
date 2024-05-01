@@ -28,7 +28,6 @@ const LeaveManagement = (props) => {
 
   const fetchLeaveBalance = async (accountId, accessToken) => {
     const leaveBalance = await getLeaveBalance(accountId, accessToken);
-    console.log(leaveBalance);
     setOverview(leaveBalance);
   };
 
