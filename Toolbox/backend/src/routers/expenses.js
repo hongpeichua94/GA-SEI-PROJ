@@ -4,6 +4,8 @@ const {
   getExpensesByAccountId,
   createExpenseRequest,
   deleteExpenseRequest,
+  getExpenseRequestByDeptManager,
+  updateExpenseRequestStatus,
 } = require("../controllers/expenses");
 
 const { authUser, authManager, authAdmin } = require("../middleware/auth");
@@ -18,7 +20,7 @@ router.put(
   // validateCreateLeaveRequestData,
   // errorCheck,
   createExpenseRequest
-); //LeaveRequest > createLeaveRequest
+); //ExpenseSubmit > createExpenseRequest
 router.delete(
   "/expense/submit",
   authUser,
@@ -26,5 +28,15 @@ router.delete(
   // errorCheck,
   deleteExpenseRequest
 );
+
+router.post("/expense/approval", authManager, getExpenseRequestByDeptManager); //ExpensePending > getPendingExpenseRequest
+router.patch(
+  "/expense/approval",
+  authManager,
+  //   validateIdInBody,
+  //   validateUpdateLeaveRequestStatusData,
+  //   errorCheck,
+  updateExpenseRequestStatus
+); //ExpensePending > handleApprove/handleReject
 
 module.exports = router;

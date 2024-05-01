@@ -12,6 +12,7 @@ import LeaveRequest from "./pages/LeaveRequest";
 import LeavePending from "./pages/LeavePending";
 import Expense from "./pages/Expense";
 import ExpenseSubmit from "./pages/ExpenseSubmit";
+import ExpensePending from "./pages/ExpensePending";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 import ComingSoon from "./pages/ComingSoon";
@@ -158,6 +159,21 @@ function App() {
           element={
             isLoggedIn ? (
               <ExpenseSubmit
+                fetchEmployeeData={fetchEmployeeData}
+                fetchEmployeeCurrentTitle={fetchEmployeeCurrentTitle}
+                employeeDetails={employeeDetails}
+                employeeCurrentTitle={employeeCurrentTitle}
+              />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
+        <Route
+          path="/expense/pending"
+          element={
+            isLoggedIn ? (
+              <ExpensePending
                 fetchEmployeeData={fetchEmployeeData}
                 fetchEmployeeCurrentTitle={fetchEmployeeCurrentTitle}
                 employeeDetails={employeeDetails}

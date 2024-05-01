@@ -43,6 +43,8 @@ const VerticalMenu = () => {
     getItem("Expense Tracker", "sub2", <DollarOutlined />, [
       getItem("My Expenses", `/expense/${userCtx.accountId}`),
       getItem("Submit Expense", "/expense/submit"),
+      (userCtx.role === "ADMIN" || userCtx.role === "MANAGER") &&
+        getItem("Pending Approval", "/expense/pending"),
     ]),
     getItem("Knowledge Base", "/knowledge-base", <StarOutlined />),
     userCtx.role === "ADMIN" &&
