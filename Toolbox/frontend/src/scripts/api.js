@@ -142,6 +142,25 @@ export const getPendingLeaveRequest = async (accountId, accessToken) => {
   }
 };
 
+export const getEmployeeExpense = async (accountId, accessToken) => {
+  try {
+    const res = await fetchData(
+      `/api/expense/${accountId}`,
+      "GET",
+      undefined,
+      accessToken
+    );
+    if (res.ok) {
+      console.log(res.data);
+      return res.data;
+    } else {
+      console.log(res.data);
+    }
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
 // ALL EMPLOYEES
 export const getAllEmployeeInfo = async (accessToken, input) => {
   try {

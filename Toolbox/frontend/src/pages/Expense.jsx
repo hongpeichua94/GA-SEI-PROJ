@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 
 // COMPONENTS
@@ -8,34 +9,88 @@ import ProfileBanner from "../components/ProfileBanner";
 import LeaveBalanceCard from "../components/LeaveBalanceCard";
 
 // ANT DESIGN
-import { Layout, theme } from "antd";
+import { Divider, Layout, Table, Space, theme, message } from "antd";
 
 import styles from "./Profile.module.css";
 
 // SCRIPTS
-import { getLeaveBalance } from "../scripts/api";
+import { getEmployeeExpense } from "../scripts/api";
 
 const { Content, Sider } = Layout;
 
 const Expense = (props) => {
+  const fetchData = useFetch();
   const userCtx = useContext(UserContext);
-  const [overview, setOverview] = useState([]);
 
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
+  const [expenses, setExpenses] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [tableParams, setTableParams] = useState({
+    pagination: {
+      current: 1,
+      pageSize: 10,
+    },
+  });
 
-  const fetchLeaveBalance = async (accountId, accessToken) => {
-    const leaveBalance = await getLeaveBalance(accountId, accessToken);
-    console.log(leaveBalance);
-    setOverview(leaveBalance);
+  const columns = [
+    {
+      title: "Created At",
+      dataIndex: "created_at_string",
+      width: "15%",
+    },
+    {
+      title: "Expense Date",
+      dataIndex: "expense_date_string",
+      width: "15%",
+    },
+    {
+      title: "Category",
+      dataIndex: "category",
+      width: "10%",
+    },
+    {
+      title: "Amount (S$)",
+      dataIndex: "amount",
+      width: "10%",
+    },
+    {
+      title: "Remarks",
+      dataIndex: "remarks",
+      width: "20%",
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      width: "10%",
+    },
+  ];
+
+  const fetchEmployeeExpense = async (accountId, accessToken) => {
+    setLoading(true); // Set loading the true while data is being fetched
+    try {
+      const data = await getEmployeeExpense(accountId, accessToken);
+      setExpenses(data);
+      setLoading(false);
+      setTableParams({
+        ...tableParams,
+        pagination: {
+          ...tableParams.pagination,
+          total: data.totalCount,
+        },
+      });
+    } catch (error) {
+      console.error("Error fetching employee expenses:", error);
+    }
   };
 
   useEffect(() => {
     if (userCtx.accountId) {
-      fetchLeaveBalance(userCtx.accountId, userCtx.accessToken);
+      fetchEmployeeExpense(userCtx.accountId, userCtx.accessToken);
     }
   }, [userCtx.accountId, userCtx.accessToken]);
+
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
 
   return (
     <div className={styles.profile}>
@@ -72,7 +127,15 @@ const Expense = (props) => {
               }}
             >
               <div className="row">
-                <h3>Expenses</h3>
+                <Divider orientation="center">My Expenses</Divider>
+                <Table
+                  columns={columns}
+                  // rowKey={(record) => record.uuid}
+                  dataSource={expenses}
+                  pagination={tableParams.pagination}
+                  loading={loading}
+                  // onChange={handleTableChange}
+                />
               </div>
             </div>
           </Content>

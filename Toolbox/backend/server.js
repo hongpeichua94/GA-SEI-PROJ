@@ -11,6 +11,7 @@ const accounts = require("./src/routers/accounts");
 const employees = require("./src/routers/employees");
 const departments = require("./src/routers/departments");
 const leaves = require("./src/routers/leaves");
+const expenses = require("./src/routers/expenses");
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -32,6 +33,7 @@ app.use("/api", accounts);
 app.use("/api", employees);
 app.use("/api", departments);
 app.use("/api", leaves);
+app.use("/api", expenses);
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {

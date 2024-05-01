@@ -11,6 +11,7 @@ import LeaveManagement from "./pages/LeaveManagement";
 import LeaveRequest from "./pages/LeaveRequest";
 import LeavePending from "./pages/LeavePending";
 import Expense from "./pages/Expense";
+import ExpenseSubmit from "./pages/ExpenseSubmit";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 import ComingSoon from "./pages/ComingSoon";
@@ -137,7 +138,7 @@ function App() {
             )
           }
         />
-        {/* <Route
+        <Route
           path="/expense/:account_id"
           element={
             isLoggedIn ? (
@@ -151,11 +152,26 @@ function App() {
               <Navigate to="/" />
             )
           }
-        /> */}
+        />
         <Route
+          path="/expense/submit"
+          element={
+            isLoggedIn ? (
+              <ExpenseSubmit
+                fetchEmployeeData={fetchEmployeeData}
+                fetchEmployeeCurrentTitle={fetchEmployeeCurrentTitle}
+                employeeDetails={employeeDetails}
+                employeeCurrentTitle={employeeCurrentTitle}
+              />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
+        {/* <Route
           path="/expense/:account_id"
           element={isLoggedIn ? <ComingSoon /> : <Navigate to="/" />}
-        />
+        /> */}
         <Route
           path="/knowledge-base"
           element={isLoggedIn ? <ComingSoon /> : <Navigate to="/" />}
