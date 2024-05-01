@@ -74,7 +74,7 @@ const LeaveRequest = (props) => {
         "PUT",
         {
           account_id: userCtx.accountId,
-          leave_type: values.type,
+          leave_type: values.leave_type,
           start_date: formattedStartDate,
           end_date: formattedEndDate,
           // file_url: values.file_url,
@@ -158,7 +158,7 @@ const LeaveRequest = (props) => {
                 >
                   <Form.Item
                     label="Leave Type"
-                    name="type"
+                    name="leave_type"
                     rules={[
                       {
                         required: true,
