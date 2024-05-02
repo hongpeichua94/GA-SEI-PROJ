@@ -8,48 +8,56 @@ Imagine a digital haven where updating your profile is as easy as updating your 
 
 #### Welcome to Toolbox!
 
-<img src="./frontend/public/">
+<img src="./frontend/public/login.png">
+<img src="./frontend/public/home.png">
 
 ## User Access
+
 #### My Profile: Manage your profile and keep your contact details updated
 
-<img src="./frontend/public/">
-
+<img src="./frontend/public/profile.gif">
 
 #### Employee Directory: Find your work bestie or track down that elusive department head who's always one step ahead of the game
 
-<img src="./frontend/public/">
-
+<img src="./frontend/public/directory.gif">
 
 #### Leave management: Keep track of your leave balance, upcoming time-off and submit leave application
 
-<img src="./frontend/public/">
-
+<img src="./frontend/public/leaveuser.gif">
 
 #### Expense management: Keep track of your expense claims and submit claims for approval
 
-<img src="./frontend/public/">
+<img src="./frontend/public/expenseuser.gif">
 
 ## Manager Access
-#### Approve direct report's leave application and/or expense claims 
 
+#### Approve direct report's leave application and/or expense claims
+
+<img src="./frontend/public/leaveapproval.png">
+<img src="./frontend/public/expenseapproval.png">
 
 ## Admin Access
+
 #### Admin Console: Create account for new employees and manage user access
 
-
+<img src="./frontend/public/adminconsole.gif">
 
 # Technologies Used
-- React
-- JSX
-- CSS
-- Node JS
-- Material UI
-- Bootstrap
-- AWS S3
+
+<img src="./frontend/public/postgresql.png">
+<img src="./frontend/public/express.png">
+<img src="./frontend/public/react.png">
+<img src="./frontend/public/nodejs.png">
+<img src="./frontend/public/css.png">
+<img src="./frontend/public/html5.png">
+<img src="./frontend/public/npm.png">
+<img src="./frontend/public/antd.png">
 
 # React Hierachy
+
 # Entity Relationship Diagram (ERD)
+
+<img src="./frontend/public/erd.jpeg">
 
 # Getting Started
 
@@ -58,7 +66,7 @@ Imagine a digital haven where updating your profile is as easy as updating your 
 1. Run `npm init -y` to initialize the project and create a package.json file
 2. Install all the packages and dependencies `npm i dotenv express-validator mongoose jsonwebtoken bcrypt uuid cors helmet express-rate-limit`
 3. Create your .env file with the following variables:
-   
+
 ```
 PORT=5001
 MONGODB_URI
@@ -67,6 +75,7 @@ REFRESH_SECRET=<YOUR_REFRESH_SECRET>
 ```
 
 ### Frontend Setup
+
 1. Run `npm i` to install all the dependencies
 2. Run `npm i react-router-dom` to install react-router-dom
 3. Run `npm i @mui/material @emotion/react @emotion/styled` to install Material UI
@@ -74,9 +83,8 @@ REFRESH_SECRET=<YOUR_REFRESH_SECRET>
 5. Run `npm i jwt-decode` to install jwt-decode
 6. Create your .env file with the following variables:
 
-```VITE_SERVER=http://localhost:5001```
-
+`VITE_SERVER=http://localhost:5001`
 
 # Next Steps
-# References
 
+# References
