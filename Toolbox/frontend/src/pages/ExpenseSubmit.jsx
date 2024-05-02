@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
+import React, { useContext, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 
@@ -71,7 +71,6 @@ const ExpenseSubmit = (props) => {
   const [amount, setAmount] = useState("");
   const [fileUrl, setFileUrl] = useState("");
   const [remarks, setRemarks] = useState("");
-  const accountId = userCtx.accountId;
 
   const createExpenseRequest = async (values) => {
     const formattedExpenseDate = dayjs(values.start_date).format("YYYY-MM-DD");

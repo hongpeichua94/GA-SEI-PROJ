@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 
@@ -79,9 +79,6 @@ const Admin = () => {
         ...prevDetails,
         ...updatedData, // Merge updatedData with existing state
       }));
-
-      // Display a message with the label of the clicked item
-      // message.info(`Clicked on ${clickedItem.label}`);
 
       // Update endpoint
       try {

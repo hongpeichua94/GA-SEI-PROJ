@@ -3,7 +3,7 @@ import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 
 // ANT DESIGN
-import { Divider, List, Typography, Avatar, message } from "antd";
+import { Divider, List, message } from "antd";
 
 // SCRIPTS
 import { getLeaveRequest } from "../scripts/api";

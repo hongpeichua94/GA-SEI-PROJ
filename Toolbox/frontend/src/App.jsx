@@ -184,10 +184,6 @@ function App() {
             )
           }
         />
-        {/* <Route
-          path="/expense/:account_id"
-          element={isLoggedIn ? <ComingSoon /> : <Navigate to="/" />}
-        /> */}
         <Route
           path="/knowledge-base"
           element={isLoggedIn ? <ComingSoon /> : <Navigate to="/" />}

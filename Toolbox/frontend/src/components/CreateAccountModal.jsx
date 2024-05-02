@@ -1,11 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import styles from "./UpdateProfileModal.module.css";
 import useFetch from "../hooks/useFetch";
-import UserContext from "../context/user";
 
 // ANT DESIGN
-import { Button, Flex } from "antd";
+import { Button } from "antd";
 
 const OverLay = (props) => {
   const fetchData = useFetch();

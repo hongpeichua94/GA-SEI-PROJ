@@ -62,7 +62,6 @@ const LeaveRequest = (props) => {
   const [endDate, setEndDate] = useState("");
   const [fileUrl, setFileUrl] = useState("");
   const [remarks, setRemarks] = useState("");
-  const accountId = userCtx.accountId;
 
   const createLeaveRequest = async (values) => {
     const formattedStartDate = dayjs(values.start_date).format("YYYY-MM-DD");

@@ -9,7 +9,7 @@ import LeaveBalanceCard from "../components/LeaveBalanceCard";
 import UpcomingLeave from "../components/UpcomingLeave";
 
 // ANT DESIGN
-import { Layout, Divider, List, Typography, theme } from "antd";
+import { Layout, theme } from "antd";
 
 import styles from "./Profile.module.css";
 

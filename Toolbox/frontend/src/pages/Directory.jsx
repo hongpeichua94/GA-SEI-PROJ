@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 
@@ -10,7 +9,7 @@ import UpdateProfileModal from "../components/UpdateProfileModal";
 
 // ANT DESIGN
 import { Layout, theme } from "antd";
-import { Avatar, Button, Space, Divider, Table, Badge, Input } from "antd";
+import { Space, Table, Input } from "antd";
 
 // import qs from "qs";
 
@@ -92,12 +91,6 @@ const Directory = () => {
       width: "20%",
     },
   ];
-
-  // const getRandomuserParams = (params) => ({
-  //   results: params.pagination?.pageSize,
-  //   page: params.pagination?.current,
-  //   ...params,
-  // });
 
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);

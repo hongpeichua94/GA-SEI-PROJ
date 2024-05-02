@@ -19,7 +19,7 @@ import {
   Table,
   Badge,
 } from "antd";
-import { UserOutlined, EditOutlined } from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 
 import styles from "./Profile.module.css";
 

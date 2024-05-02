@@ -14,7 +14,7 @@ import { Avatar, Space } from "antd";
 // SCRIPTS
 import { getEmployeeInfo, getEmployeeCurrentTitle } from "../scripts/api";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Sider } = Layout;
 
 const Dashboard = () => {
   const userCtx = useContext(UserContext);

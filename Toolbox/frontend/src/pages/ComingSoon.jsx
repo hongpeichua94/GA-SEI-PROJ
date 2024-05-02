@@ -13,9 +13,6 @@ import styles from "./Profile.module.css";
 const { Content, Sider } = Layout;
 
 const Expense = (props) => {
-  const userCtx = useContext(UserContext);
-  const [overview, setOverview] = useState([]);
-
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
