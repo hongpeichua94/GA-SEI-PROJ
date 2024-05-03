@@ -4,7 +4,7 @@ Introducing Toolbox, your backstage pass to streamlining company operations with
 
 Imagine a digital haven where updating your profile is as easy as updating your social media status. Need a day off or a reimbursement for that business lunch? Toolbox has your back, offering seamless request and approval processes. So, let's banish the bureaucracy and embrace a smoother, more streamlined way of working with Toolbox by your side.
 
-# Screenshot
+# Features
 
 #### Welcome to Toolbox!
 
@@ -43,17 +43,40 @@ Imagine a digital haven where updating your profile is as easy as updating your 
 <img src="./frontend/public/adminconsole.gif">
 
 # Technologies Used
-
-<img src="./frontend/public/postgresql.png">
-<img src="./frontend/public/express.png">
-<img src="./frontend/public/react.png">
-<img src="./frontend/public/nodejs.png">
+<img src="./frontend/public/postgresql.png"> <img src="./frontend/public/express.png"> <img src="./frontend/public/react.png"> <img src="./frontend/public/nodejs.png">
 <img src="./frontend/public/css.png">
 <img src="./frontend/public/html5.png">
 <img src="./frontend/public/npm.png">
 <img src="./frontend/public/antd.png">
 
-# React Hierachy
+# React Hierarchy
+<pre>
+App
+|__ Profile
+      |__ ProfileBanner
+      |__ UpdateProfileModal
+|__ Login
+|__ LeaveManagement
+      |__ ProfileBanner
+      |__ LeaveBalanceCard
+      |__ UpcomingLeave
+|__ LeaveRequest
+|__ LeavePending
+      |__ ProfileBanner
+|__ Expense
+      |__ ProfileBanner
+      |__ ExpenseSummaryCard
+|__ ExpenseSubmit
+|__ ExpensePending
+      |__ ProfileBanner
+|__ Directory
+|__ Dashboard
+      |__ NewEmployee
+|__ Admin
+      |__ CreateAccountModal
+|__ ComingSoon
+|__ NotFound
+</pre>
 
 # Entity Relationship Diagram (ERD)
 
@@ -64,27 +87,39 @@ Imagine a digital haven where updating your profile is as easy as updating your 
 ### Backend Setup
 
 1. Run `npm init -y` to initialize the project and create a package.json file
-2. Install all the packages and dependencies `npm i dotenv express-validator mongoose jsonwebtoken bcrypt uuid cors helmet express-rate-limit`
-3. Create your .env file with the following variables:
-
+2. Install all the packages and dependencies <br />
+<pre>
+  npm i express
+  npm i -D nodemon
+  npm i express-validator 
+  npm i jsonwebtoken uuid bcrypt 
+  npm i cors helmet express-rate-limit
+  npm i dotenv
+  npm i pg
+</pre>
+4. Create your .env file with the following variables:
 ```
 PORT=5001
-MONGODB_URI
 ACCESS_SECRET=<YOUR_ACCESS_SECRET>
 REFRESH_SECRET=<YOUR_REFRESH_SECRET>
+DB_USER=<YOUR_DB_USER>
+DB_PASSWORD=<YOUR_DB_PASSWORD>
 ```
 
 ### Frontend Setup
 
 1. Run `npm i` to install all the dependencies
 2. Run `npm i react-router-dom` to install react-router-dom
-3. Run `npm i @mui/material @emotion/react @emotion/styled` to install Material UI
-4. Run `npm i @mui/icons-material` to install Material UI icons
-5. Run `npm i jwt-decode` to install jwt-decode
-6. Create your .env file with the following variables:
-
+3. Run `npm I antd --save` to install Ant Design
+4. Run `npm i jwt-decode` to install jwt-decode
+5. Create your .env file with the following variables:
 `VITE_SERVER=http://localhost:5001`
 
 # Next Steps
+1. Create an Onboarding Portal to streamline and manage the onboarding process for new employees within the organization
+2. Create an OKR feature for managers to effectively set, track, and align team and individual goals within the organization
+3. Create a Knowledge Base for employees to access a centralized repository of information, resources, and best practices within the organization
 
 # References
+1. [Ant Design](https://ant.design/components/overview/)
+2. ChatGPT 3.5
