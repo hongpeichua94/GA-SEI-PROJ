@@ -61,12 +61,14 @@ App
       |__ LeaveBalanceCard
       |__ UpcomingLeave
 |__ LeaveRequest
+      |__ ProfileBanner
 |__ LeavePending
       |__ ProfileBanner
 |__ Expense
       |__ ProfileBanner
       |__ ExpenseSummaryCard
 |__ ExpenseSubmit
+      |__ ProfileBanner
 |__ ExpensePending
       |__ ProfileBanner
 |__ Directory
